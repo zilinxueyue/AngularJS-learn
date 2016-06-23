@@ -1,0 +1,92 @@
+﻿AngularJS learn point
+
+1. if express
+
+ui-sref="{{1==2? 'proorderhome' : 'forumhome'}}"
+if 1==2 then return "proorderhome" else return 'forumhome'
+
+ ui-sref="{{1==2? 'proorderhome' :2==3? 'forumhome': 'farmhome'}}
+
+double if express
+
+
+2. use the formatData filter
+var formatDate = $filter("date")($scope.actionRecordDate, "MM-yy");
+  console.log( $filter("date")(new Date(), "yyyy/MM/dd"));
+
+3. angular.forEach
+angular.forEach($scope.landlist, function(data,index,array){
+                     getLandList.mainlandlist.push(data);
+
+  });
+
+$parent
+
+4. page reload
+ $state.go("farmhome", null, {reload: true});
+
+5. ui-serf  when use the if condition to decide wich to go is not wrking can use the ng-if
+
+like : below can not working (not sure whar happaned may be the ui-router config not correct may be the express of the if not crrect )
+<!--ui-sref="{{login_app_user_id == subject.app_user_id ?'forumhome.detail.edit':'forumhome.detail.reply({subject_user_id:subject.subject_id,reply_user_id:login_app_user_id})'}}">-->
+
+but use ng-if it's working 
+<ons-button modifier="large"  ng-if="login_app_user_id != subject.app_user_id" ui-sref="forumhome.detail.reply({subject_user_id:subject.subject_id,reply_user_id:login_app_user_id})">立即回复</ons-button>
+    <ons-button modifier="large" ng-if="login_app_user_id == subject.app_user_id" ui-sref="forumhome.detail.edit">编辑帖子</ons-button>
+
+6.ng-options有以下格式的语法
+ 
+for array data sources:
+ 
+label for value in array
+select as label for value in array
+label group by group for value in array
+select as label group by group for value in array track by trackexpr
+for object data sources:
+ 
+label for (key , value) in object
+select as label for (key , value) in object
+label group by group for (key, value) in object
+select as label group by group for (key, value) in ob
+
+like:
+ng-options="land as land.name+'  '+land.area for land in landlist"
+
+land is object 
+the value showing is after :as 
+before as is the selected object (can be one of land item or the whole object )
+
+7. double orderBy and reverse
+<ui  ng-repeat="item  in  items |orderBy:['year','month']:true">
+
+8. some issue when used angular 
+if you saved some data in the service. And used them on the page 
+but when you back the page it's only refresh the ng-repeat data other data not refreshed 
+this can be resolved by reload the page as below
+$state.go("farmhome.detail", null, {reload: true});
+noted: if you already used the cache it will not request the server
+I encounter this issue recentily :
+I saved some data in the map. 
+when I add some new data and update the map, it's has been updated success. But when I back the the list page 
+which used the map data it's not refreshed. and the intresing thing is on the the array in that map 
+which I used ng-repeat at the page it's showing.
+
+9. regular expression
+ng-pattern = "/^\d{1,11}(?:\.\d{1,2})?$/"
+^\d{1,11}(?:\.\d{1,2})?$  // > 0 number 11 bit and 2 .00 bit
+
+
+10. ons notification alert
+
+ ons.notification.alert({
+                            title: "登录失败",
+                            buttonLabel:"确定",
+                            message: error.message
+                        });
+11. ui-sref reload
+ui-sref-opts="{reload: true}"
+
+
+12.use ui-router
+ When use it with html. do not add the controller on the body. ---- ui-view will add the html into index.html but there will only have on body for the html.
+ So if add the controller on the other html's body it's will not include into the view.
