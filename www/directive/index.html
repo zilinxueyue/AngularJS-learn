@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/angular.js"></script>
+    <script src="direct.js"></script>
+</head>
+<body ng-controller="mycontrl">
+      <!--<hello></hello>-->
+
+      <!--<expander class='expander' expander-title='title'>-->
+          <!--{{text}}-->
+      <!--</expander>-->
+
+      <accordion>
+          <expander class='expander' ng-repeat='expander in expanders' expander-title='expander.title'>
+              {{expander.text}}
+          </expander>
+      </accordion>
+
+<style>
+
+    .expander {
+        border: 1px solid black;
+        width: 250px;
+    }
+
+    .expander>.title {
+        background-color: black;
+        color: white;
+        padding: .1em .3em;
+        cursor: pointer;
+    }
+
+    .expander>.body {
+        padding: .1em .3em;
+    }
+</style>
+</body>
+</html>

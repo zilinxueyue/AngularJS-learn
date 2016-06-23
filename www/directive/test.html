@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+
+<div ng-controller='MainController'>
+    father: {{name}}
+    <input ng-model="name" />
+    <div my-directive></div>
+</div>
+
+<script>
+    angular.module('myApp', [])
+            .controller('MainController', function ($scope) {
+                $scope.name = 'leifeng';
+            })
+            .directive('myDirective', function () {
+                return {
+                    restrict: 'EA',
+                    scope:false,//改变此处的取值,看看有什么不同
+                    template: '<div>son:{{ name }}<input ng-model="name"/></div>'
+                };
+            });
+</script>
+
+<!--<div ng-init="aaa='father'">-->
+    <!--parentNod:{{aaa}}-->
+    <!--<div class='one' ng-controller="myController">-->
+        <!--chrildNode: {{aaa}}-->
+        <!--<div class='two' ng-controller='myController2'>-->
+            <!--{{aaa}}-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<script>-->
+    <!--angular.module('myApp', [])-->
+            <!--.controller('myController',function($scope){-->
+                <!--$scope.aaa = 'son';-->
+            <!--})-->
+            <!--.controller('myController2',function($scope){-->
+                <!--$scope.aaa = 'granddaughter';-->
+            <!--})-->
+<!--</script>-->
+</body>
+</html>
