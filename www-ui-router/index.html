@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
+<html lang="en" ng-app="saleapp" >
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.css">
+
+    <!-- JS dependencies (order matters!) -->
+    <!--<script src="lib/angular/angular.min.js"></script>-->
+
+    <!--<script src="lib/jquery.js"></script>-->
+    <script src="lib/angular/angular.js"></script>
+
+
+    <script src="lib/jquery-3.0.0.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <!--<script src="lib/jquery.js"></script>-->
+    <!--<script src="lib/angular/angular-route.js"></script>-->
+    <script src="lib/angular/angular-translate.js"></script>
+    <script src="lib/angular/loader-static-files.js"></script>
+    <script src="lib/angular/angular-ui-router.js"></script>
+    <script src="lib/ui-bootstrap.js"></script>
+
+    <title>laoodao shop</title>
+</head>
+<body >
+<script src="scripts/config/approuteconfig.js"></script>
+<script src="scripts/config/languageconfig.js"></script>
+<script src="page/salehome.js"></script>
+<script src="scripts/index.js"></script>
+<!--<div ng-view>-->
+    <div ui-view="indexview"></div>
+<!--</div>-->
+</body>
+</html>

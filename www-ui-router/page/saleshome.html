@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"  >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body >
+
+<div ng-controller="salehomeContrl">
+  <div ui-view="headerview"> <button ui-sref="saleshome.content"> change content</button></div>
+  <div ui-view="contentview">content</div>
+  <!--<div  ui-view="leftview">left</div>-->
+  <!--<div ui-view="rightview">right</div>-->
+  <!--<div ui-view="footerview">footer</div>-->
+  <!-- Standard button -->
+  <button type="button" class="btn btn-default" ng-click="showalert()"> （默认样式）Default</button>
+
+    <h1>{{selected}}</h1>
+
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li ng-repeat="page in [1,2,3,4,5]" ng-click="showpage(page)"><a href="#" >{{page}}</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true"> > </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <section class="row" >
+        <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;">
+            <!--<script type="text/ng-template" id="myModelContent.html">  //创建一个局部视图，需要的时候引用它， 下面会用到-->
+            <!--<div class="modal-header"> // modal头部 。body  footer 类推-->
+                <!--<h3 class="modal-title">html5jq模态框</h3>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<ul>-->
+                    <!--<li ng-repeat="item in items">-->
+                        <!--<a ng-click="selected.item = item">{{item}}</a> //显示当前点击的item-->
+                    <!--</li>-->
+                    <!--当前选择： <b>{{selected.item}}</b>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button class="btn btn-primary" ng-click="ok()">-->
+                    <!--确认-->
+                <!--</button>-->
+                <!--<button class="btn btn-warning" ng-click="cancel()">退出</button>-->
+            <!--</div>-->
+            <!--</script>-->
+
+            <button class="btn btn-info" ng-click="open()">点我！</button>
+            <button class="btn btn-default" ng-click = "open('lg')">大模态</button>  //lg 大模态，sm小模态
+            <button class="btn btn-default" ng-click = "open('sm')">小模态</button>
+            <hr>
+            <div ng-show="selected">当前选择：{{selected}}</div>
+        </section>
+    </section>
+</div>
+</body>
+
+
+</html>
