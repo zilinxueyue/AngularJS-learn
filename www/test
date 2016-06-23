@@ -1,0 +1,9 @@
+\language\
+en.json
+cn.json
+
+BaseLang.js
+getProp()
+
+
+BaseLang.getProp("member.name");

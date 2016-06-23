@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="msgContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+<button ng-click="setLocalStoreage()">set local storage</button>
+</body>
+<script>
+    var app= angular.module("myApp",[]);
+    app.controller("msgContrl",function($scope){
+        // window.localStorage.name = "hahah";
+        $scope.setLocalStoreage=function(){
+            window.localStorage.name = "hahah";
+            alert("set success");
+        }
+
+    })
+
+</script>
+</html>

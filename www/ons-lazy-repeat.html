@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="msgContrl">
+<head>
+    <meta charset="UTF-8">
+    <title> ons-lazy-repeat</title>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+
+</head>
+<body>
+    <ons-page>
+        <ons-toolbar>
+            <div class="center">Lazy Repeat</div>
+        </ons-toolbar>
+
+        <ons-list>
+            <ons-list-item ons-lazy-repeat="MyDelegate">
+                {{item.name}}
+            </ons-list-item>
+        </ons-list>
+    </ons-page>
+</body>
+<script>
+//    var app= angular.module("myApp",["onsen"]);
+    var app = angular.module('myApp', ['onsen']);
+    app.controller("msgContrl",["$scope","$http",function($scope,$http) {
+        var current =1;
+        var page_item_count=10;
+        var delegateitems=[
+            {name:"haha1"},
+            {name:"haha2"},
+            {name:"haha3"},
+            {name:"haha4"},
+            {name:"haha5"},
+            {name:"haha6"},
+            {name:"haha7"},
+            {name:"haha8"},
+            {name:"haha9"},
+            {name:"haha10"}
+        ];
+
+        $scope.MyDelegate = {
+            configureItemScope: function(index, itemScope) {
+                console.log("Created item #" + index);
+                console.log("current page is : "+current);
+                console.log("current*page_item_count is : "+current*page_item_count);
+
+
+                console.log("current item inxde is : "+(index-(current-1)*page_item_count));
+                console.log("if case is : "+((current*page_item_count-index) > 0) + " --- and the current*page_item_count-index is "+ (current*page_item_count-index));
+                if((current*page_item_count-index) > 0) {
+
+                }else{
+                    current=current+1;
+                }
+                var itemsindex = (index-(current-1)*page_item_count);
+                if(index > 20){
+
+                }else {
+                    itemScope.item = {
+                        name: 'Item #' + index
+                    };
+                }
+            },
+            calculateItemHeight: function(index) {
+                return 45;
+            },
+            countItems: function() {
+                return 20;
+            },
+            destroyItemScope: function(index, scope) {
+                console.log("Destroyed item #" + index);
+            }
+        };
+
+//        $scope.MyDelegate = {
+//            configureItemScope: function(index, itemScope) {
+//                if (!itemScope.item) {
+//                    console.log("Created item #" + index);
+//                    itemScope.item = {
+//                        title: 'Item #' + (index + 1),
+//                        label: '',
+//                        desc: '',
+//                        rand: Math.random()
+//                    };
+//
+//                    itemScope.item = {
+//                        name: 'Item #' + (index + 1)
+//                    };
+////                    $http({
+////                        method: 'POST',
+////                        url: "http://182.92.25.188:80/LDDataServer/?action=Forum&cmd=getAllForumInfo",
+////                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+////                        data: null
+////                    })
+////                            .success(function (result) {
+////
+////                                itemScope.item = {
+////                                    name: 'Item #' + (index + 1)+result.data[0].subject_content
+////                                };
+////                            })
+////                            .error(function (error) {
+////                                itemScope.item = {
+////                                    name: 'Item #' + (index + 1)
+////                                };
+////                            });
+//                }
+//
+//            },
+//            calculateItemHeight: function(index) {
+//                return 100;
+//            },
+//            countItems: function() {
+//                return 10000000000;
+//            },
+//            destroyItemScope: function(index, scope) {
+//                console.log("Destroyed item #" + index);
+//            }
+//        };
+
+    }])
+</script>
+</html>

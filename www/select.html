@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+<select class="select-input select-input--transparent" name="" ng-model="selectitem" ng-options="land as land.name+'  '+land.area for land in landlist">
+    <option label="ff">-please select-</option>
+    </select>
+
+<ui >
+    <li ng-repeat="img in images">
+        <img src="{{img.pic_path}}" alt="">
+    </li>
+
+</ui>
+<button ng-click="getSelection()">get select</button>
+</body>
+<script>
+    angular.module('myApp',[])
+            .controller("myContrl",function($scope){
+
+                $scope.landlist=[{
+                    id:1,
+                    name:"a",
+                    area:200
+                },{
+                    id:2,
+                    name:"b",
+                    area:100
+                }];
+
+                $scope.images=[{"pic_path":"http://9.125.151.127:8080/user_images/000000000000000000000062_20160323094953164.jpg"},{"pic_path":"http://9.125.151.127:8080/user_images/000000000000000000000062_20160323095236422.jpg"}]
+                $scope.getSelection=function(){
+                    //alertDialog("sadf");
+                    console.log($scope.selectitem);
+                }
+            })
+</script>
+</html>

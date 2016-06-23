@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>农田详情</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <!--<script src="js/myContrJs.js" style=""></script>-->
+    <!--<script>-->
+        <!--angular.module('appTianDetails',[])-->
+    <!--</script>-->
+</head>
+<body ng-app="appTianDetails">
+<div class="navigation-bar">
+    <div class="navigation-bar__left">
+        <div class="navigation-bar__left navigation-bar--android__left">
+    <span class="toolbar-button navigation-bar__line-height"
+          style="padding: 0 5px 0 5px;">
+      <i class="ion-android-arrow-back" style="font-size:20px;"></i>
+    </span>
+        </div>
+    </div>
+    <div class="navigation-bar__center">
+        农田详情
+    </div>
+    <div class="navigation-bar__right">
+    <span class="toolbar-button--quiet
+      navigation-bar__line-height">修改</span>
+    </div>
+</div>
+<div class="navigation-bar__cente">
+    <span class="toolbar-button--quiet
+      navigation-bar__line-height">劳道商城，化肥买2送1火热销售中</span>
+</div>
+<br>
+<div ng-controller="contrlTianDetails">
+<ul class="list">
+    <li class="list__header" style="hight:30px">棉花100亩</li>
+  <!--
+   <li class="list__item" ng-repeat="mitem in mitems">
+    -->
+    <!--<li class="list__item" ng-repeat="mitem in [{opTime:'2/16 2016',opDetails:'施底肥',opPrice:'1500'},{opTime:'2/18 2016',opDetails:'整地',opPrice:'1000'},{opTime:'2/20 2016',opDetails:'铺地膜',opPrice:'1600'},{opTime:'2/26 2016',opDetails:'播种',opPrice:'2000'}]">-->
+    <li class="list__item" ng-repeat="mitem in mitems">
+        <ons-row>
+            <ons-col >{{ mitem.opTime }}</ons-col>
+            <ons-col> {{ mitem.opDetails }}</ons-col>
+            <ons-col> {{ mitem.opPrice }}</ons-col>
+        </ons-row>
+    </li>
+    <li class="list__item">小结：6100 </li>
+</ul>
+</div>
+<div>
+ <button class="button--large--cta">添加</button>
+</div>
+</div>
+</body>
+<script>
+    var app = angular.module('appTianDetails',[])
+    app.controller('contrlTianDetails',function($scope){
+        $scope.mitems=[{opTime:'2/16 2016',opDetails:'施底肥',opPrice:'1500'},{opTime:'2/18 2016',opDetails:'整地',opPrice:'1000'},{opTime:'2/20 2016',opDetails:'铺地膜',opPrice:'1600'},{opTime:'2/26 2016',opDetails:'播种',opPrice:'2000'}]
+    })
+</script>
+</html>

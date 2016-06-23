@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="msgContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+<button ng-click="getLocalStoreage()">get local storage</button>
+</body>
+<script>
+    var app= angular.module("myApp",[]);
+    app.controller("msgContrl",function($scope){
+        $scope.getLocalStoreage=function(){
+            alert("local storage name is : "+window.localStorage.name);
+            alert("local storage name is : "+(window.localStorage.startpageflag == undefined));
+        }
+    })
+       // window.localStorage.name = "hahah";
+
+</script>
+</html>

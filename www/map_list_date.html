@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+   <button ng-click="showTime()">hh</button>
+   <button ng-click="copyArray()">Copy</button>
+   <ui     ng-repeat="item in items">
+       <li>{{item}}</li>
+
+   </ui>
+   <ui    ng-repeat="person in persons">
+       <li>{{person.name}}</li>
+       <li>{{person.age}}</li>
+   </ui>
+</body>
+<script>
+    angular.module("myApp",[])
+            .factory('orderInfoService', function(){
+                var servives = {};
+                var map={};
+                servives.putMap=function(item){
+                    map[item.k]=item.v;
+                }
+                servives.getMap=function(){
+                    return map;
+                }
+                servives.getVByK=function(k){
+                    return map[k];
+                }
+                servives.updatemMapAge=function(k,value){
+                    map[k].age = value;
+                }
+                servives.cleanmap=function(){
+                    map={};
+                }
+
+                var arrayT=[
+                    {
+                        id:1,
+                        name:"a"
+                    }
+
+                ];
+                var landlist=[
+                    {id:1,
+                        age:20
+                    },
+                    {id:2,
+                        age:40
+                    }
+                ]
+                servives.pushArrayT=function(items){
+                    var temp=arrayT;
+                    arrayT=arrayT.concat(items);
+                    console.log("kaishi lianjjie");
+                    console.log(arrayT);
+                };
+                servives.getArrayT=function(){
+                    return arrayT;
+                }
+
+                servives.updateList=function(id, age){
+                    angular.forEach(landlist,function(data,index,array){
+                        if(angular.equals(data.id,id)){
+                            data.age = age;
+                        }
+                    })
+                }
+
+                servives.getLandList=function(){
+                    return landlist;
+                }
+                return servives;
+            })
+            .controller("myContrl",['$scope','$filter','orderInfoService',function($scope,$filter,orderInfoService){
+                console.log(orderInfoService.getLandList());
+                $scope.showTime= function(){
+//                    var formatDate = $filter("date")($scope.actionRecordDate, "MM-yy");
+                    console.log( $filter("date")(new Date(), "yyyy/MM/dd"));
+                }
+                var a=[1,2,3,4];
+                var b=[{name:"a",age:20},{name:"b",age:30}];
+                $scope.copyArray=function(){
+//                    angular.copy($scope.items,a);
+//                    $scope.persons=b;
+//                    console.log($scope.items);
+//                    console.log($scope.persons);
+//                    var myv={
+//                        age:20,
+//                        name:"Alvin"
+//                    };
+//                    var item ={
+//                    k:1,v:myv
+//                    };
+//                    orderInfoService.putMap(item);
+                    console.log("map before clean");
+                    console.log(orderInfoService.getMap());
+//                    console.log(orderInfoService.getVByK(1).age);
+//                    orderInfoService.updatemMapAge(1,30);
+//                    console.log(orderInfoService.getVByK(1).age);
+
+                    orderInfoService.cleanmap();
+                    console.log("map after clean");
+                    console.log(orderInfoService.getMap());
+
+//                    orderInfoService.updateList(2,50);
+//                    console.log(orderInfoService.getLandList());
+//
+//                    console.log(orderInfoService.getArrayT());
+//                    var aitems=[
+//                        {id:2,
+//                            name:"b"
+//                        } ,
+//                        {id:3,
+//                            name:"c"
+//                        }
+//                    ];
+//                    orderInfoService.pushArrayT(aitems);
+//                    console.log(orderInfoService.getArrayT());
+
+                }
+            }])
+
+
+
+</script>
+</html>

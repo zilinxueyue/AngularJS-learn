@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Split View</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script type="text/javascript" src="js/myContrJs.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body>
+
+<ons-split-view var="app.splitView" secondary-page="secondary.html" main-page="spage1.html" main-page-width="70%" collapse="width 500px">
+</ons-split-view>
+
+<ons-template id="secondary.html">
+    <ons-page style="background-color: white; border-right: 1px solid #ddd;">
+        <ons-list>
+            <ons-list-item modifier="tappable" class="list__item__line-height" onclick="app.splitView.setMainPage('spage1.html');">
+                <i class="fa fa-home fa-lg" style="color: #666"></i> &nbsp; SPage1
+            </ons-list-item>
+
+            <ons-list-item modifier="tappable" class="list__item__line-height" onclick="app.splitView.setMainPage('spage2.html');">
+                <i class="fa fa-gear fa-lg" style="color: #666"></i> &nbsp; SPage2
+            </ons-list-item>
+
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="spage1.html">
+    <ons-navigator>
+        <ons-page>
+
+            <div style="text-align: center; color: #999; padding: 60px 10px 10px 10px;">
+                <p>This spitview collapses when the width is less than 500px. </p>
+
+                <p>
+                    <a href="#" target="_blank" class="button button--light">Open Another Window</a>
+                </p>
+                <a var="myNavigator" ons-click="pushPage('spage2.html', { animation: 'none' }):"> my Navigator </a>
+            </div>
+
+        </ons-page>
+    </ons-navigator>
+
+
+</ons-template>
+
+<ons-template id="spage2.html">
+    <ons-navigator>
+        <ons-page>
+
+            <p style="text-align: center; color: #999; padding-top: 100px;">
+                SPage2 Contents
+            </p>
+        </ons-page>
+    </ons-navigator>
+</ons-template>
+<script>
+    ons.bootstrap();
+    ons.ready(function() {
+        // Hide Cordova splash screen when Onsen UI is loaded completely
+        // API reference: https://github.com/apache/cordova-plugin-splashscreen/blob/master/doc/index.md
+        alert("ons ready");
+        var elm = $("<div><ons-button>Compile add New Button</ons-button></div>");
+        elm.appendTo($("body")); // Insert to the DOM first
+        ons.compile(elm[0]);
+    });
+</script>
+</body>
+</html>

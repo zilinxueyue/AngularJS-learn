@@ -1,0 +1,52 @@
+<ons-page ng-controller="forumAddContrl">
+
+  <ons-toolbar>
+    <div class="left">
+      <ons-toolbar-button ui-sref="forumhome">
+        <ons-icon icon="ion-ios-arrow-back" fixed-width="false"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center">发布问题</div>
+  </ons-toolbar>
+  <div class="forum-container">
+    <div class="form-row">
+      <ons-icon icon="ion-edit"></ons-icon>
+      <!-- <input type="text" class="text-input text-input--underbar" placeholder="请输入帖子标题" value="" ng-model="subject_Title"> -->
+      <textarea type="text" class="textarea textarea--underbar" rows="10" placeholder="输入帖子内容" ng-model="subject_content" ng-change="checkText()"></textarea>
+    </div>
+<!--     <div class="form-row">
+  <textarea class="textarea textarea--underbar" rows="10" placeholder="输入帖子内容" ng-model="subject_Content"></textarea>
+</div> -->
+    <div class="form-row">
+      <div class="tip">
+        <ons-icon icon="ion-camera"></ons-icon>若您的问题有关于病虫害，请分别拍摄<span>整株状态、发病部位、叶片状态</span>
+      </div>
+    </div>
+
+
+
+    <div class="form-row" >
+      <div class="img-list">
+        <ons-row >
+          <ons-col ng-repeat="img in idimgs">
+            <img src="data:image/png;base64,{{img}}" alt=""  width="80" height="80">
+          </ons-col>
+        </ons-row>
+      </div>
+    </div>
+
+      <div class="form-row" ng-show="landadd_pic_paths.length > 0">
+        <div class="img-list">
+          <ons-row  >
+            <ons-col ng-repeat="carditem in landadd_pic_paths">
+              <img src="{{carditem.pic_path}}" alt=""  width="80" height="80">
+            </ons-col>
+          </ons-row>
+        </div>
+    </div>
+      <button class="upload-images" ng-click="takePicture('id')"></button>
+     <div class="action-button-nf" ng-click="addNewForum()">
+      <ons-button modifier="large" >立刻发布</ons-button>
+    </div>
+  </div>
+</ons-page>

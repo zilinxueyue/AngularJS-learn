@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script type="text/javascript" src="js/myContrJs.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body ng-app="formApp">
+<form name="loginform" ng-controller="loginContrl">
+    <ons-page  class="login"  >
+        <!--<ons-toolbar modifier="transparent">-->
+        <!--&lt;!&ndash;<div class="left">&ndash;&gt;-->
+        <!--&lt;!&ndash;<ons-back-button></ons-back-button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</ons-toolbar>-->
+        <div class="logo">
+            <img src="images/logo-white.svg" alt="">
+        </div>
+        <div class="login-container" >
+
+            <div class="form-row">
+                <ons-icon icon="ion-ipad"></ons-icon>
+                <input type="text" class="text-input text-input--underbar" placeholder="请输入手机号" value=""  name="mobile" ng-model="appMobileNo"  required/>
+                <!--<span style="color:red" ng-show="loginForm.mobile.$dirty && loginForm.mobile.$invalid">-->
+                <!--<span ng-show="loginForm.mobile.$error.required">手机号是必须的。</span>-->
+                <span style="color:red" ng-show="loginform.mobile.$error.required">手机号是必须的。</span>
+                <!--</span>-->
+            </div>
+            <div class="form-row">
+                <ons-icon icon="ion-locked"></ons-icon>
+                <input type="password" class="text-input text-input--underbar" placeholder="请输入登录密码" value="" id="appPwd" name="appPwd" ng-model="appPwd" required/>
+            </div>
+
+            <div class="action-button-nf">
+                <ons-button type="submit" modifier="large" ng-disabled="loginForm.$invalid" ng-click="userLogin()">登录</ons-button>
+            </div>
+
+            <div class="signup">初次使用？立刻<a href="#loginhome.signup">注册新账号</a></div>
+            <div class="copyright">
+                <div class="laodao"></div>
+                <p>WWW.LAOODAO.COM</p>
+                <p>All Rights Reserved</p>
+            </div>
+        </div>
+    </ons-page>
+</form>
+</body>
+<script>
+    angular.module('formApp',[])
+            .controller('loginContrl',function($scope){
+
+            })
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+</head>
+<body ng-app="modalApp" ng-controller="modalContrl">
+
+<ons-modal var="modal" ng-model="modal" class="alert-dialog-content">
+    <br> Please wait.
+    <br>Closing in 2 seconds.
+</ons-modal>
+
+<ons-navigator >
+    <ons-page id="my-page">
+        <ons-toolbar>
+            <div class="center">Modal</div>
+        </ons-toolbar>
+        <p style="text-align: center">
+            <ons-button  modifier="light" ng-click="showmodal()">Open Modal</ons-button>
+        </p>
+    </ons-page>
+</ons-navigator>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/onsenui.js"></script>
+<script src="js/onsenui.min.js"></script>
+<script>
+    //ons.bootstrap();
+    var module = ons.bootstrap('modalApp',[])
+    module.controller('modalContrl',function($scope){
+        $scope.showmodal = function(){
+            modal.show();
+            setTimeout('modal.hide()', 2000);
+        }
+    })
+
+</script>
+</body>
+</html>

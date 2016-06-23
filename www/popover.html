@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popover</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" >
+    <link rel="stylesheet" href="css/ionicons.min.css" >
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body >
+<ons-page ng-controller="AppController">
+    <ons-toolbar>
+        <div class="center">Popover</div>
+    </ons-toolbar>
+
+    <div style="margin-top: 100px; text-align: center">
+        <ons-button modifier="light" ng-click="popover.show($event)">Show iOS popover</ons-button>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center">
+        <ons-button modifier="light" ng-click="popoverAndroid.show($event)">Show Android popover</ons-button>
+    </div>
+
+</ons-page>
+
+<ons-template id="popover1.html">
+    <ons-popover direction="up down" cancelable>
+        <div style="text-align: center; opacity: 0.5;">
+            <p>This is a popover!</p>
+            <p><small>Click the background to remove the popover.</small></p>
+        </div>
+    </ons-popover>
+</ons-template>
+
+<ons-template id="popover-android.html">
+    <ons-popover modifier="android" direction="up down" cancelable>
+        <div style="text-align: center; opacity: 0.5;">
+            <p>This is a popover!</p>
+            <p><small>Click the background to remove the popover.</small></p>
+        </div>
+    </ons-popover>
+</ons-template>
+
+<ons-template id="popover-simple.html">
+    <ons-popover modifier="simple" direction="up down" cancelable>
+        <div style="text-align: center; opacity: 0.5;">
+            <p>This is a popover!</p>
+            <p><small>Click the background to remove the popover.</small></p>
+        </div>
+    </ons-popover>
+</ons-template>
+<script>
+
+    var module = ons.bootstrap();
+    module.controller('AppController', function($scope) {
+        ons.createPopover('popover1.html').then(function(popover) {
+            $scope.popover = popover;
+        });
+        ons.createPopover('popover-android.html').then(function(popover) {
+            $scope.popoverAndroid = popover;
+
+            ons.createPopover('popover-simple.html').then(function(popover) {
+                $scope.popoverSimple = popover;
+
+            });
+
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="myApp">
+<head >
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-translate.js"></script>
+    <script src="js/loader-static-files.js"></script>
+</head>
+<body  ng-controller="myController">
+
+<h2>{{'HEADLINE' | translate }}</h2>
+<p>{{'INTRO_TEXT' | translate}}</p>
+<div >
+    <button ng-click="changeLanguage('cn')" translate="BUTTON_TEXT_DE"></button>
+    <button ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></button>
+</div>
+</body>
+<script>
+    var app = angular.module('myApp', ['pascalprecht.translate'])
+            .config(['$translateProvider',function($translateProvider) {
+                $translateProvider.useStaticFilesLoader({
+                    prefix: 'language/',
+                    suffix: '.json'
+                });
+                $translateProvider.preferredLanguage('cn');
+            }]).controller('myController', function($translate, $scope){
+                     $scope.changeLanguage = function(langKey) {
+                     $translate.use(langKey);
+                }
+              })
+</script>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myContl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>slideUpDownRefresh</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.css?v=1">
+    <link rel="stylesheet" type="text/css" href="iscroll.css">
+    <link rel="stylesheet" href="../css/onsenui.css">
+    <link rel="stylesheet" href="../css/onsen-css-components.css">
+    <script src="../js/angular.js"></script>
+    <script src="../js/onsenui.js"></script>
+</head>
+<!--<body onload="loaded()">-->
+<body>
+<div id="wrapper">
+    <div id="scroller">
+        <div id="scroller-pullDown">
+            <span id="down-icon" class="icon-double-angle-down pull-down-icon"></span>
+            <span id="pullDown-msg" class="pull-down-msg">下拉刷新</span>
+        </div>
+        <div id="scroller-content">
+            <ons-list ng-repeat="item in items  track by $index">
+
+                <ons-list-item modifier="tappable">
+                    Pretty row 1 -- {{item}}
+                </ons-list-item>
+
+            </ons-list>
+            <!--<ul ng-repeat="item in items  track by $index">-->
+                <!--<li>Pretty row 1 &#45;&#45; {{item}}</li>-->
+                <!--<li>Pretty row 2</li>-->
+                <!--<li>Pretty row 3</li>-->
+                <!--<li>Pretty row 4</li>-->
+                <!--<li>Pretty row 5</li>-->
+                <!--<li>Pretty row 6</li>-->
+                <!--<li>Pretty row 7</li>-->
+                <!--<li>Pretty row 8</li>-->
+                <!--<li>Pretty row 9</li>-->
+                <!--<li>Pretty row 10</li>-->
+                <!--<li>Pretty row 11</li>-->
+                <!--<li>Pretty row 12</li>-->
+                <!--<li>Pretty row 13</li>-->
+                <!--<li>Pretty row 14</li>-->
+                <!--<li>Pretty row 15</li>-->
+                <!--<li>Pretty row 16</li>-->
+                <!--<li>Pretty row 17</li>-->
+                <!--<li>Pretty row 18</li>-->
+                <!--<li>Pretty row 19</li>-->
+                <!--<li>Pretty row 20</li>-->
+                <!--<li>Pretty row 21</li>-->
+                <!--<li>Pretty row 22</li>-->
+                <!--<li>Pretty row 23</li>-->
+                <!--<li>Pretty row 24</li>-->
+                <!--<li>Pretty row 25</li>-->
+                <!--<li>Pretty row 26</li>-->
+                <!--<ul ng-repeat="item in items  track by $index">-->
+                    <!--<li>item</li>-->
+                <!--</ul>-->
+
+            <!--</ul>-->
+
+        </div>
+        <div id="scroller-pullUp">
+            <span id="up-icon" class="icon-double-angle-up pull-up-icon"></span>
+            <span id="pullUp-msg" class="pull-up-msg">上拉刷新</span>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="iscroll.js"></script>
+<script type="text/javascript">
+
+    var app = angular.module("myApp", []);
+    app.controller('myContl', function ($scope) {
+        $scope.items = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9];
+        var myScroll, upIcon = $("#up-icon"), downIcon = $("#down-icon");
+
+        myScroll = new IScroll('#wrapper', {probeType: 3, mouseWheel: true});
+
+        console.log(myScroll);
+        console.log(myScroll.silieUpDown())
+//        myScroll.on("slideDown", function () {
+//            console("slideDown");
+//        })
+
+        myScroll.on("scroll", function () {
+            console.log("scroll");
+            var y = this.y,
+                    maxY = this.maxScrollY - y,
+                    downHasClass = downIcon.hasClass("reverse_icon"),
+                    upHasClass = upIcon.hasClass("reverse_icon");
+
+            if (y >= 40) {
+                !downHasClass && downIcon.addClass("reverse_icon");
+                return "";
+            } else if (y < 40 && y > 0) {
+                downHasClass && downIcon.removeClass("reverse_icon");
+                return "";
+            }
+
+            if (maxY >= 40) {
+                !upHasClass && upIcon.addClass("reverse_icon");
+                return "";
+            } else if (maxY < 40 && maxY >= 0) {
+                upHasClass && upIcon.removeClass("reverse_icon");
+                return "";
+            }
+        });
+//
+        myScroll.on("slideDown", function () {
+            alert("slideDown");
+            if (this.y > 40) {
+                alert("slideDown");
+                upIcon.removeClass("reverse_icon")
+              //  $scope.items=[1,2,3,4,5,6,7,8,9,10];
+            }
+        });
+
+        myScroll.on("slideUp", function () {
+            alert("slideUp");
+            if (this.maxScrollY - this.y > 40) {
+                alert("slideUp");
+                upIcon.removeClass("reverse_icon")
+             //   $scope.items=$scope.items.concat([1,2,3,4,5,6,7,8,9,10]);
+            }
+        });
+
+    })
+    //function loaded () {
+    //	var myScroll,
+    //		upIcon = $("#up-icon"),
+    //		downIcon = $("#down-icon");
+    //
+    //	myScroll = new IScroll('#wrapper', { probeType: 3, mouseWheel: true });
+    //
+    //	myScroll.on("scroll",function(){
+    //		var y = this.y,
+    //			maxY = this.maxScrollY - y,
+    //			downHasClass = downIcon.hasClass("reverse_icon"),
+    //			upHasClass = upIcon.hasClass("reverse_icon");
+    //
+    //		if(y >= 40){
+    //			!downHasClass && downIcon.addClass("reverse_icon");
+    //			return "";
+    //		}else if(y < 40 && y > 0){
+    //			downHasClass && downIcon.removeClass("reverse_icon");
+    //			return "";
+    //		}
+    //
+    //		if(maxY >= 40){
+    //			!upHasClass && upIcon.addClass("reverse_icon");
+    //			return "";
+    //		}else if(maxY < 40 && maxY >=0){
+    //			upHasClass && upIcon.removeClass("reverse_icon");
+    //			return "";
+    //		}
+    //	});
+    //
+    //	myScroll.on("slideDown",function(){
+    //		if(this.y > 40){
+    //			alert("slideDown");
+    //			upIcon.removeClass("reverse_icon")
+    //		}
+    //	});
+    //
+    //	myScroll.on("slideUp",function(){
+    //		if(this.maxScrollY - this.y > 40){
+    //			alert("slideUp");
+    //			upIcon.removeClass("reverse_icon")
+    //		}
+    //	});
+//    }
+
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<title>Title</title>-->
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <!--&lt;!&ndash;<link rel="stylesheet" href="css/bootstrap.min.css">&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="css/myCss.css">-->
+    <!--<script src="js/angular.min.js"></script>-->
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+</head>
+<body >
+<form  ng-app="myApp"  ng-controller="validateCtrl"
+       name="myForm" novalidate>
+
+    <!--<p>用户名:<br>-->
+        <input type="text" name="user" ng-model="user" required>
+  <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+  <span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+  </span>
+    <!--</p>-->
+
+    <!--<p>邮箱:<br>-->
+        <!--<input type="email" name="email" ng-model="email" required>-->
+  <!--<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">-->
+  <!--<span ng-show="myForm.email.$error.required">邮箱是必须的。</span>-->
+  <!--<span ng-show="myForm.email.$error.email">非法的邮箱。</span>-->
+  <!--</span>-->
+    <!--</p>-->
+
+    <!--<p>-->
+        <!--<input type="submit"-->
+               <!--ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||-->
+  <!--myForm.email.$dirty && myForm.email.$invalid">-->
+    <!--</p>-->
+
+
+
+<!--&lt;!&ndash;<ons-page>&ndash;&gt;-->
+    <!--<ons-toolbar>-->
+        <!--<div class="center">Log In</div>-->
+        <!--<div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>-->
+    <!--</ons-toolbar>-->
+
+    <!--<div class="login-form">-->
+
+        <!--<input type="text" class="text-input&#45;&#45;underbar" placeholder="user" value="" ng-model="user" required/>-->
+        <!--<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">-->
+            <!--<span ng-show="myForm.user.$error.required">用户名是必须的。</span>-->
+        <!--</span>-->
+        <!--<input type="password" class="text-input&#45;&#45;underbar" placeholder="Password" value="">-->
+        <!--<br><br>-->
+        <!--<ons-button modifier="large" class="login-button">Log In</ons-button>-->
+        <!--<br><br>-->
+        <!--<ons-button modifier="quiet" class="forgot-password">Forgot password?</ons-button>-->
+    <!--</div>-->
+<!---->
+<!--</ons-page>-->
+
+</form>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('validateCtrl', function($scope) {
+        $scope.user = 'John Doe';
+        $scope.email = 'john.doe@gmail.com';
+    });
+</script>
+<style>
+    .login-form {
+        text-align: center;
+        width: 80%;
+        margin: 60px auto 0;
+    }
+
+    input[type=email], input[type=password] {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        outline: none;
+        height: 100%;
+        padding-top: 15px;
+        padding-bottom: 16px;
+    }
+
+    .login-button {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .forgot-password {
+        display: block;
+        margin: 8px auto 0 auto;
+        font-size: 14px;
+    }
+</style>
+
+</body>
+</html>

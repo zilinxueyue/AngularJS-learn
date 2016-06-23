@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Ui Router Test</title>
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-ui-router.js"></script>
+    <script src="../js/onsenui.js"></script>
+    <link rel="stylesheet" href="../css/onsenui.css">
+    <link rel="stylesheet" href="../css/onsen-css-components.css">
+    <!--<script src="app.js"></script>-->
+    <script src="uirouter.js"></script>
+
+    <!--<script src="app.js"></script>-->
+</head>
+<!-- in index.html -->
+<body ng-app="routerApp" ng-controller="mainCtrl">
+<!--<div ng-view></div>-->
+<div ui-view="indexview"></div>
+<!-- We'll also add some navigation: -->
+<a ui-sref="state1">State 1</a>
+<a ui-sref="state2">State 2</a>
+</body>
+<script>
+
+    angular.module('routerApp',['uirouter','onsen'])
+            .controller('mainCtrl',function(){
+
+
+           })
+//    ons.ready(function() {
+        openDialog = function () {
+            ons.createDialog('material.html').then(function (alertDialog) {
+                console.log(alertDialog);
+                alertDialog.show();
+            });
+
+        }
+
+</script>
+
+
+
+</html>

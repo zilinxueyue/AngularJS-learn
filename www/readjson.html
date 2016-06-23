@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+<p>{{MY_LINK}}</p>
+<button ng-click="setLink()">set my link</button>
+</body>
+<script>
+    var app = angular.module('myApp',[]);
+//    var getConfig=function(key){
+//        var data;
+//        angular.$http.get("json/test.json").success(
+//                function (result) {
+//                    data= result;
+//                }).error(function (error) {
+//
+//        });
+//        return data.key;
+//    }
+//    app.factory('readJson',function($http,$q){
+//        var getConfigData=function() {
+////            var data={};//= {HEADLINE: "你好", INTRO_TEXT: "只是il8n支持", MY_LINK: "WWW.BAIDU.COM"} ;
+////            var deferred = $q.defer();
+////            var promise = deferred.promise;
+//
+//                 var request=$http.get("json/test.json").success(
+//                    function (result) {
+//                        data= result;
+//                    }).error(function (error) {
+//
+//            });
+//          return (request.then(handleSuccess,handleError));
+////
+//        }
+//        function  handleSuccess(result){
+//            return result;
+//        };
+//        function handleError(error){
+//            return error;
+//        }
+//
+//
+//            return {
+//                getConfigData:getConfigData
+//            }
+//
+//    })
+app.factory('getStaticJsonConfig',function($http) {
+                var getData = function(key) {
+                    alert(key);
+                    var data;
+                    $http.get("json/test.json").success(
+                            function (result) {
+                                data = result;
+                                alert(data.INTRO_TEXT);
+                            }).error(function (error) {
+
+                    });
+                    alert( (eval('data.'+ key)) + " and key is : "+key);
+                    return eval('data.'+ key);
+                }
+                return {
+                    getData: getData
+                }
+            }
+     );
+app.controller('myContrl',['$scope','$http','$httpParamSerializerJQLike','getStaticJsonConfig',function($scope,$http,$httpParamSerializerJQLike,getStaticJsonConfig){
+
+    //var data = readJson.getConfigData();
+
+    $scope.setLink=function() {
+        var data = [{name:"aaa",age:"12"},{name:'bb',age:'23'}];
+        console.log(data.length);
+       // console.log(getStaticJsonConfig.getData('INTRO_TEXT'));
+//        var postData= {
+//            "app_user_id":'001',
+//            "plant_detail_id":"002",
+//            "bpm_name":"wok",
+//            "labor_cost":'11',
+//            "material_detail": $httpParamSerializerJQLike([{name:"aaa",age:"12"},{name:'bb',age:'23'}]) //"machine_detail":$scope.machines
+//        };
+//        var material_detail=[{name:"aaa",age:"12"},{name:'bb',age:'23'}];
+//        console.log($httpParamSerializerJQLike(postData));
+//
+//        var json={"edit":[{"bh":"11111","mc":"11111","dbms":"ORACLE9i","dwmmc":"","addr":"","username":"","password":"","rm_sz":"ck","nyr_sz":"","id":"-1"},{"bh":"121","mc":"12","dbms":"ORACLE9i","dwmmc":"12","addr":"12","username":"12","password":"12","rm_sz":"ck","nyr_sz":"2011-09-06","id":"13"}],"del":["12"]};
+//        //var data = JSON.stringify(json);
+////        console.log(data);
+//       // console.log(json.toString());
+//
+//        $http({
+//            method: 'POST',
+//            url:  'http://9.125.151.114:8080/LDDataServer/?action=CroplandMgr&cmd=saveNewOperation',
+//            headers: {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'},
+//            data:$httpParamSerializerJQLike(postData)// tranjsontoparam(postData)
+//        }).success(function(result){
+//
+//                })
+//                .error(function(error){
+//
+//                });
+
+//        console.log(getStaticJsonConfig.data);
+//        alert(getConfig('INTRO_TEXT'));
+//           alert("start seting "+readJson.getConfigData().then(function(result){
+//                       result.;
+//                       console.log(result);
+//                   }));
+//           $scope.MY_LINK = readJson.MY_LINK;
+    }
+
+}]
+)
+</script>
+</html>

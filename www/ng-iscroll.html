@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-iscroll</title>
+    <script src="js/angular.js"></script>
+   <script src="js/iscroll.js"></script>
+    <script src="js/ng-iscroll.js"></script>
+</head>
+<body>
+<div ng-app='App'>
+    <div ng-controller='Controller'>
+
+        <div id="wrapper" ng-iscroll >
+            <div id="scroller">
+                <ul id="thelist" ng-repeat="items in [1,2,3,4,5,6,7,8,9,10]">
+                    <li>Pretty row 1</li>
+
+                    <li id="aaa">Pretty row 2</li>
+                    <li>Pretty row 5</li>
+                    <li>Pretty row 6</li>
+                    <li>Pretty row 7</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+<script>
+    var App = angular.module('App', ['ng-iscroll']);
+    App.controller('Controller', function ($scope)
+    {
+        // Defines additional options such as onScrollEnd and other runtime settings
+        // exposed by iScroll can be defined per id attribute
+        alert("in");
+        $scope.$parent.myScrollOptions = {
+       snap: true,
+          onScrollEnd :function () {
+                alert('finshed scrolling');
+            }
+        };
+
+        // expose refreshiScroll() function for ng-onclick or other meth
+        $scope.refreshiScroll = function ()
+        {
+            $scope.$parent.myScroll['wraper'].refresh();
+        };
+
+
+    });
+
+</script>
+</html>

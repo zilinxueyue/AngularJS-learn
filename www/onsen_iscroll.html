@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<ons-page>
+    <ons-scroller var="myscroll" style="height: 100px"   class="scroller">
+        <ons-list-item>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        <p>Scrollable content.</p>
+        </ons-list-item>
+    </ons-scroller>
+    <p>
+        <ons-button ng-click="getScrollValue()">
+            Get scroll value
+        </ons-button>
+    </p>
+    <p>
+        Current scroll value: <span ng-model="scvalue"></span>
+    </p>
+</ons-page>
+</body>
+<script>
+
+    var app=angular.module("myApp",['onsen']);
+    app.controller("myController",["$scope",function($scope){
+
+//        var scroll =new IScroll('myscroll',[200,100]);
+
+       $scope.getScrollValue = function() {
+
+//              var str="1234567";
+//              alert(str.substring(str.length-4));
+            // $('ons-scroller > .ons-scroller__content').scrollTop;
+            console.log($scope.myscroll);
+         $scope.scvalue = $scope.myscroll.scrollTop;
+        }
+
+//        $scope.getScrollValue = function() {
+//          //  var scroll = $scope.muscroller.scrollTop;
+//               //console.log($scope.muscroller);
+//               $scope.scrollvalue ="xxx";
+//        }
+//        var myScroll;
+//
+//        myScroll = new IScroll('#wrapper', { probeType: 3, mouseWheel: true });
+//        //probeType属性，表明此插件，可以监听scroll事件
+//
+//        myScroll.on("scroll",function(){
+//            //scroll事件，可以用来控制上拉和下拉之后显示的模块中，
+//            //样式和内容展示的部分的改变。
+//            var y = this.y,
+//                    maxY = this.maxScrollY - y,
+//                    downHasClass = downIcon.hasClass("reverse_icon"),
+//                    upHasClass = upIcon.hasClass("reverse_icon");
+//
+//            if(y >= 40){
+//                !downHasClass && downIcon.addClass("reverse_icon");
+//                return "";
+//            }else if(y < 40 && y > 0){
+//                downHasClass && downIcon.removeClass("reverse_icon");
+//                return "";
+//            }
+//
+//            if(maxY >= 40){
+//                !upHasClass && upIcon.addClass("reverse_icon");
+//                return "";
+//            }else if(maxY < 40 && maxY >=0){
+//                upHasClass && upIcon.removeClass("reverse_icon");
+//                return "";
+//            }
+//        });
+//
+//        myScroll.on("slideDown",function(){
+//            //当下拉，使得边界超出时，如果手指从屏幕移开，则会触发该事件
+//            if(this.y > 40){
+//                //获取内容于屏幕拉开的距离
+//                //可以在该部分中，修改样式，并且仅限ajax或者其他的一些操作
+//                //此时只是为了能演示该功能，只添加了一个alert功能。
+//                //并且，由于alert会阻塞后续的动画效果，所以，
+//                //添加了后面的一行代码，移除之前添加上的一个样式
+//                alert("slideDown");
+//                upIcon.removeClass("reverse_icon");
+//            }
+//        });
+//
+//        myScroll.on("slideUp",function(){
+//            if(this.maxScrollY - this.y > 40){
+//                //与slideDown相同的，maxScrollY表示文档区域的最大高度
+//                alert("slideUp");
+//                upIcon.removeClass("reverse_icon")
+//            }
+//        });
+//                $rootScope, $timeout, $interval, iScrollSignals,
+//                        iScrollService
+//                var myScroll = new iscroll("");
+//               //probeType属性，表明此插件，可以监听scroll事件
+//                myScroll.on("scroll",function(){
+//                    //scroll事件，可以用来控制上拉和下拉之后显示的模块中，
+//                    //样式和内容展示的部分的改变。
+//                     console.log("scroll on");
+//                     $scope.items=[1,2,3,4,5,6];
+//                    var y = this.y,
+//                            maxY = this.maxScrollY - y,
+//                            downHasClass = downIcon.hasClass("reverse_icon"),
+//                            upHasClass = upIcon.hasClass("reverse_icon");
+//
+//                    if(y >= 40){
+//                        !downHasClass && downIcon.addClass("reverse_icon");
+//                        return "";
+//                    }else if(y < 40 && y > 0){
+//                        downHasClass && downIcon.removeClass("reverse_icon");
+//                        return "";
+//                    }
+//
+//                    if(maxY >= 40){
+//                        !upHasClass && upIcon.addClass("reverse_icon");
+//                        return "";
+//                    }else if(maxY < 40 && maxY >=0){
+//                        upHasClass && upIcon.removeClass("reverse_icon");
+//                        return "";
+//                    }
+//                });
+//
+//                myScroll.on("slideDown",function(){
+//                    //当下拉，使得边界超出时，如果手指从屏幕移开，则会触发该事件
+//                    if(this.y > 40){
+//                        //获取内容于屏幕拉开的距离
+//                        //可以在该部分中，修改样式，并且仅限ajax或者其他的一些操作
+//                        //此时只是为了能演示该功能，只添加了一个alert功能。
+//                        //并且，由于alert会阻塞后续的动画效果，所以，
+//                        //添加了后面的一行代码，移除之前添加上的一个样式
+//                        alert("slideDown");
+//                        upIcon.removeClass("reverse_icon");
+//                    }
+//                    console.log("slide down");
+//                    $scope.items=[1,2,3,4,5,6];
+//
+//                });
+//
+//                myScroll.on("slideUp",function(){
+//                    console.log("slide up");
+//                    $scope.items.push($scope.items.length + 1);
+//                    if(this.maxScrollY - this.y > 40){
+//                        //与slideDown相同的，maxScrollY表示文档区域的最大高度
+//                        alert("slideUp");
+//                        upIcon.removeClass("reverse_icon")
+//                    }
+//                });
+
+            }])
+
+
+</script>
+</html>

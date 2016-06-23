@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>todoList</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body   ng-app="MyApp">
+
+   <!--<div ng-controller="contrlList">-->
+       <!--<li class="list__item" ng-repeat="mitem in mitems">-->
+           <!--<ons-row>-->
+               <!--<ons-col >{{ mitem.opTime }}</ons-col>-->
+               <!--<ons-col> {{ mitem.opDetails }}</ons-col>-->
+               <!--<ons-col> {{ mitem.opPrice }}</ons-col>-->
+           <!--</ons-row>-->
+       <!--</li>-->
+     <!--</div>-->
+
+   <div >
+       <div ng-controller="MyController">
+           <label for="flag">成功
+               <input id="flag" type="checkbox" ng-model="flag" /><br/>
+           </label>
+           <div ng-cloak>
+               {{status}}
+           </div>
+           <hr/>
+           <button ng-click="handle()">点击我</button>
+       </div>
+   </div>
+
+
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/angular.js"></script>
+<!--<script>-->
+    <!--var app = angular.module('appList',[])-->
+    <!--app.controller('contrlList',function($scope){-->
+        <!--$scope.mitems=[{opTime:'2/16 2016',opDetails:'施底肥',opPrice:'1500'},{opTime:'2/18 2016',opDetails:'整地',opPrice:'1000'},{opTime:'2/20 2016',opDetails:'铺地膜',opPrice:'1600'},{opTime:'2/26 2016',opDetails:'播种',opPrice:'2000'}]-->
+    <!--})-->
+<!--</script>-->
+<script>
+//    angular.module("MyApp", [])
+//            .controller("MyController", ["$scope", "$q", function ($scope, $q) {
+//                $scope.flag = true;
+//                $scope.handle = function () {
+//                    var deferred = $q.defer();
+//                    var promise = deferred.promise;
+//
+//                    promise.then(function (result) {
+//                        alert("Success: " + result);
+//                    }, function (error) {
+//                        alert("Fail: " + error);
+//                    });
+//
+//                    if ($scope.flag) {
+//                        deferred.resolve("you are lucky!");
+//                    } else {
+//                        deferred.reject("sorry, it lost!");
+//                    }
+//                }
+//            }]);
+    angular.module("MyApp", [])
+            .controller("MyController", ["$scope", "$q", function ($scope, $q) {
+                $scope.flag = true;
+                $scope.handle = function () {
+                    var deferred = $q.defer();
+                    var promise = deferred.promise;
+
+                    promise.then(function (result) {
+                        result = result + "you have passed the first then()";
+                        $scope.status = result;
+                        return result;
+                    }, function (error) {
+                        error = error + "failed but you have passed the first then()";
+                        $scope.status = error;
+                        return error;
+                    }).then(function (result) {
+                        alert("Success: " + result);
+                    }, function (error) {
+                        alert("Fail: " + error);
+                    })
+
+                    if ($scope.flag) {
+                        deferred.resolve("you are lucky!");
+                    } else {
+                        deferred.reject("sorry, it lost!");
+                    }
+                }
+            }]);
+
+</script>
+</html>

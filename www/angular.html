@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>todoList</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body   ng-app="todoList" ng-init=" landlist=[1,2,3,4,5] ">
+
+<div class="farmland-info">
+    <h4>田地数量 <span ng-model="landcount">{{ landcount }}</span> 块，耕种面积 <span>270</span> 亩</h4>
+    <ons-button>添加更多田地信息</ons-button>
+</div>
+
+<ons-list class="farmland-management" >
+    <ons-list-item class="list-item-container"  ng-repeat="land in landlist" >
+          {{ landcount= 1*landcount + 1*land}}
+        <div class="list-item-content">
+            <div class="name">棉花<span>{{land}}00亩</span>
+            </div>
+            <div class="desc">2016/04/03 <span>播种</span></div>
+
+        </div>
+    </ons-list-item>
+</ons-list>
+<div class="input-group"  ng-controller="TaskCtrl">
+         <input ng-model="task" type="text" ng-trim="false">
+         <p>{{task}}</p>
+         <span class="input-group-btn ">
+             <button class="btn btn-default" ng-click="add()">Submit</button>
+         </span>
+         <h4 ng-if="tasks.length>0">Task List</h4>
+         <ul class="list-group">
+             <li ng-repeat="item in tasks track by $index" class="list-group-item">{{item}}<a ng-click="tasks.splice($index,1)">Delete</a></li>
+         </ul>
+     </div>
+     <div  ng-controller="dataBand">
+           <h1 class="{{msg}}" ng-bind="msg"></h1>
+           <mytab></mytab>
+     </div>
+
+     <
+     <div ng-controller="ExampleController">
+         <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
+         <input type="checkbox" ng-model="confirmed" id="ng-change-example2" />
+         <label for="ng-change-example2">Confirmed</label><br />
+         debug = {{confirmed}}<br/>
+         counter = {{counter}}<br/>
+     </div>
+   <div>
+       Check me to check both:<br/>
+       <input type="checkbox" ng-model="master"><br/>
+       <input id="checkSlave" type="checkbox" ng-checked="master">
+
+       <p ng-class="{strike: deleted, bold: important, red: error}">Map Syntax Example</p>
+       <input type="checkbox" ng-model="deleted"> deleted (apply "strike" class)<br>
+       <input type="checkbox" ng-model="important"> important (apply "bold" class)<br>
+       <input type="checkbox" ng-model="error"> error (apply "red" class)
+       <hr>
+       <p ng-class="style">Using String Syntax</p>
+       <input type="text" ng-model="style" placeholder="Type: bold strike red">
+       <hr>
+       <p ng-class="[style1, style2, style3]">Using Array Syntax</p>
+       <input ng-model="style1" placeholder="Type: bold, strike or red"><br>
+       <input ng-model="style2" placeholder="Type: bold, strike or red"><br>
+       <input ng-model="style3" placeholder="Type: bold, strike or red"><br>
+       <button ng-click="count=count+1" ng-init="count=0">
+           Increment
+       </button>
+<span>
+  count: {{count}}
+</span>
+       <div id="template1" ng-cloak>{{ 'hello' }}</div>
+       <div id="template2" ng-cloak class="ng-cloak">{{ 'hello IE7' }}</div>
+
+       <div  >
+           <input ng-copy="copied=true" ng-init="copied=false; value='copy me'" ng-model="value">
+           copied: {{ copied}}
+       </div>
+
+   </div>
+
+     <div id="ctrl-as-exmpl" ng-controller="SettingsController1 as settings">
+         Name: <input type="text" ng-model="settings.name"/>
+         [ <a href="" ng-click="settings.greet()">greet</a> ]<br/>
+         Contact:
+         <ul>
+             <li ng-repeat="contact in settings.contacts">
+                 <select ng-model="contact.type">
+                     <option>phone</option>
+                     <option>email</option>
+                 </select>
+                 <input type="text" ng-model="contact.value"/>
+                 [ <a href="" ng-click="settings.clearContact(contact)">clear</a>
+                 | <a href="" ng-click="settings.removeContact(contact)">X</a> ]
+             </li>
+             <li>[ <a href="" ng-click="settings.addContact()">add</a> ]</li>
+         </ul>
+     </div>
+
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/angular.js"></script>
+<script type="text/javascript" src="js/myContrJs.js">
+
+</script>
+
+</html>

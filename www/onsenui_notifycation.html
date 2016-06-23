@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dialog</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script type="text/javascript" src="js/myContrJs.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body ng-app="myapp">
+<ons-page>
+
+    <ons-toolbar>
+        <div class="center">
+            Notifications
+        </div>
+    </ons-toolbar>
+
+    <ons-list ng-controller="NotificationController">
+        <ons-list-header>Material Design</ons-list-header>
+        <ons-list-item ng-click="alert(true)" modifier="tappable">
+            Alert
+        </ons-list-item>
+        <ons-list-item ng-click="confirm(true)" modifier="tappable">
+            Confirm
+        </ons-list-item>
+        <ons-list-item ng-click="prompt(true)" modifier="tappable">
+            Prompt
+        </ons-list-item>
+        <ons-list-header>Flat Design</ons-list-header>
+        <ons-list-item ng-click="alert()" modifier="tappable">
+            Alert
+        </ons-list-item>
+        <ons-list-item ng-click="confirm()" modifier="tappable">
+            Confirm
+        </ons-list-item>
+        <ons-list-item ng-click="prompt()" modifier="tappable">
+            Prompt
+        </ons-list-item>
+    </ons-list>
+
+
+</ons-page>
+
+<!--<ons-navigator animation="slide" var="myapp.navi">-->
+<!--<ons-page>-->
+<!--<ons-toolbar>-->
+<!--<div class="center">Sidle Menu Page</div>-->
+<!--</ons-toolbar>-->
+<!--<p style="text-align: center">-->
+<!--<ons-button modifier="light" ng-click="myapp.navi.pushPage('sidlepage.html');">Go to Sidle Menu Page</ons-button>-->
+<!--</p>-->
+<!--</ons-page>-->
+<!--</ons-navigator>-->
+
+
+<script>
+    var module = ons.bootstrap('myapp', ['onsen'])
+    module.controller('NotificationController', function ($scope) {
+        $scope.alert = function (material) {
+            ons.notification.alert({
+                message: 'An error has occurred!',
+                modifier: material ? 'material' : undefined
+            });
+        }
+
+        $scope.confirm = function (material) {
+            var mod = material ? 'material' : undefined;
+
+
+            ons.notification.alert({
+                title: "登录失败",
+                buttonLabel:"确定",
+                message: "hhahd"
+            });
+
+            ons.notification.confirm({
+                title:null,
+                message: " ", //'请选择图片来源',
+                buttonLabels:['手机拍照','从相册选择','取消'],
+                cancelable:true,
+                modifier: mod,
+                callback: function (idx) {
+                    alert("you have pressed : "+idx);
+                    window.open("http://www.example.com/anotherpage.html");
+//                    switch (idx) {
+//                        case 0:
+//                            ons.notification.alert({
+//                                message: 'You pressed "Cancel".',
+//                                modifier: mod
+//                            });
+//                            break;
+//                        case 1:
+//                            ons.notification.alert({
+//                                message: 'You pressed "OK".',
+//                                modifier: mod
+//                            });
+//                            break;
+//                    }
+                }
+            });
+        }
+
+        $scope.prompt = function (material) {
+            var mod = material ? 'material' : undefined;
+            ons.notification.prompt({
+                message: "Please enter your age",
+                modifier: mod,
+                callback: function (age) {
+                    ons.notification.alert({
+                        message: 'You are ' + parseInt(age || 0) + ' years old.',
+                        modifier: mod
+                    });
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

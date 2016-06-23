@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular iscroll</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ng-infinite-scroll.js"></script>
+    <script src="js/onsenui.js"></script>
+
+</head>
+<body>
+<ng-view>
+<ons-navigator>
+<ons-page  ng-app='myApp' ng-controller='DemoController'>
+    <ons-toolbar>
+        <div class="left">
+            <!--<ons-toolbar-button ui-sref="loginhome">-->
+            <!--<ons-icon icon="ion-ios-arrow-back" fixed-width="false"></ons-icon>-->
+            <!--</ons-toolbar-button>-->
+        </div>
+        <div class="center">劳道问答</div>
+        <div class="right">
+            <!--<a style="text-decoration:none;"  ng-click="doQuestions()">-->
+            <ons-toolbar-button ui-sref="forumhome.add">
+                <ons-icon icon="ion-help-circled" fixed-width="false"></ons-icon>
+                提问
+            </ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+    <div class="button-bar">
+
+    </div>
+<!--<div >-->
+    <!--<div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>-->
+        <ons-list class="forum-list" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+            <ons-litst-item  ng-repeat='item in items track by $index' >
+                {{item}}<br><br><br><br><br>
+            </ons-litst-item>
+        </ons-list>
+
+        <!--<div ng-repeat='item in items track by $index'>-->
+                  <!--{{item}}<br><br><br><br><br>-->
+        <!--</div>-->
+        <!--<div ng-show='busy'>Loading data...</div>-->
+    <!--</div>-->
+<!--</div>-->
+    <div class="tab-bar">
+
+        <!--// <label class="tab-bar__item" ng-show = "iden_type_code=='A'" ui-sref="{{iden_type_code=='A'? 'proorderhome' :iden_type_code =='B'? 'resorderhome': 'forumhome'}}">-->
+        <label class="tab-bar__item" >
+            <input type="radio" name="tab-bar-a">
+            <button class="tab-bar__button">
+                <i class="tab-bar__icon ion-ios-keypad"></i>
+                <div class="tab-bar__label">kkkk</div>
+            </button>
+        </label>
+</div>
+</ons-page>
+
+    <div ng-view>
+        <div ui-view="forumhomeview"></div>
+    </div>
+    </ons-navigator>
+</ng-view>
+</body>
+<script>
+    var myApp = angular.module('myApp', ['infinite-scroll']);
+
+    myApp.controller('DemoController', function($scope) {
+       var page = 1;
+        $scope.items=[1,2,3,4,5,6,7,8,9,10];
+        $scope.busy=false;
+        $scope.nextPage = function() {
+             if($scope.busy){
+                 return;
+             }
+            else{
+                 $scope.busy=true;
+             }
+            $scope.items=$scope.items.concat([1,2,3,4,5,6,7,8,9,10]);
+            if(page < 5){
+                $scope.busy=false;
+            }
+            console.log(page++);
+
+        };
+
+//        $scope.reddit= function() {
+//            alert("redidit");
+//            items = [1,2,3,4];
+//            busy = false;
+//            after = '';
+//            prototype.nextPage = function() {
+//                if (busy) return;
+//                busy = true;
+//                alert("request next page");
+//                items=items.concat([1,2,3,4,5]);
+//           };
+//        }
+
+    });
+
+
+    // Reddit constructor function to encapsulate HTTP and pagination logic
+    myApp.factory('Reddit', function($http) {
+        var Reddit = function() {
+            this.items = [];
+            this.busy = false;
+            this.after = '';
+        };
+
+        Reddit.prototype.nextPage = function() {
+            if (this.busy) return;
+            this.busy = true;
+
+            var url = "https://api.reddit.com/hot?after=" + this.after + "&jsonp=JSON_CALLBACK";
+            $http.jsonp(url).success(function(data) {
+                var items = data.data.children;
+                for (var i = 0; i < items.length; i++) {
+                    this.items.push(items[i].data);
+                }
+                this.after = "t3_" + this.items[this.items.length - 1].id;
+                this.busy = false;
+            }.bind(this));
+        };
+
+        return Reddit;
+    });
+</script>
+</html>

@@ -1,0 +1,80 @@
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body>
+<div ng-controller="myCtrl">
+
+        <ons-tabbar-item label="田管"
+                         page="tianguan.html" active="true"></ons-tabbar-item>
+        <ons-tabbar-item ng-click="pushPage('order.html', { animation: 'none' }):"
+                         label="订单"
+                         page="order.html"></ons-tabbar-item>
+        <ons-tabbar-item ng-click="pushPage('conmunity.html', { animation: 'none' }):"
+                         label="论坛"
+                         page="conmunity.html"></ons-tabbar-item>
+        <ons-tabbar-item ng-click="pushPage('vip.html', { animation: 'none' }):"
+                         label="会员"
+                         page="vip.html">
+        </ons-tabbar-item>
+
+    </ons-tabbar>
+    <ng-view></ng-view>
+    <!-- <div ng-view ></div> -->
+</div>
+
+
+
+<script type="text/javascript">
+    angular.module("myApp",["ngRoute"])
+            .controller("aController",function($scope,$route){
+                $scope.hello = "hello,a!";
+            })
+            .controller("bController",function($scope){
+                $scope.hello = "hello,b!";
+            })
+            .controller("myCtrl",function($scope,$location){
+
+                $scope.$on("$viewContentLoaded",function(){
+                    console.log("ng-view content loaded!");
+                });
+
+                $scope.$on("$routeChangeStart",function(event,next,current){
+                    //event.preventDefault(); //cancel url change
+                    console.log("route change start!");
+                });
+            })
+            .config(function($routeProvider, $locationProvider) {
+                $routeProvider
+                        .when('/a', {
+                            templateUrl: 'tianDetails.html',
+                            controller: 'aController'
+                        })
+                        .when('/b', {
+                            templateUrl: 'vip.html',
+                            controller: 'bController',
+                            resolve: {
+                                // I will cause a 1 second delay
+                                delay: function($q, $timeout) {
+                                    var delay = $q.defer();
+                                    $timeout(delay.resolve, 3000);
+                                    return delay.promise;
+                                }
+                            }
+                        })
+                        .otherwise({
+                            redirectTo: '/a'
+                        });
+            });
+</script>
+</body>
+</html>

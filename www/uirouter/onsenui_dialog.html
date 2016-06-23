@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dialog</title>
+    <!--<script src="js/angular.min.js"></script>-->
+    <script src="js/angular.js"></script>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+
+    <script src="js/onsenui.js"></script>
+    <!--<script src="js/onsenui.min.js"></script>-->
+</head>
+<body ng-app="myapp">
+<ons-page ng-controller="NotificationController">
+ <button onclick="openDialog()">open dialog</button>
+    <input ng-model="inputtest">
+
+
+    <ons-template id="material.html">
+        <ons-dialog var="dialog" modifier="material" cancelable>
+            <div >
+                <ul >
+                    <li>
+                        <img src="images/icon-wechat.svg" alt="">微信
+                    </li>
+                    <li>
+                        <img src="images/icon-moments.svg" alt="">朋友圈
+                    </li>
+                    <li>
+                        <img src="images/icon-qq.svg" alt="">QQ
+                    </li>
+                </ul>
+                <a href="">取消</a>
+            </div>
+        </ons-dialog>
+    </ons-template>
+
+    <!--<ons-template id="material.html">-->
+        <!--<ons-dialog cancelable>-->
+            <!--<button onclick="chooseItem(1)">fenxiang 1</button> <br>-->
+            <!--<button onclick="chooseItem(2)">fenxiang 2</button><br>-->
+            <!--<button onclick="chooseItem(3)">fenxiang 3</button><br>-->
+            <!--<button ng-click="chooseItem(4)">fenxiang 4</button><br>-->
+            <!--<button ng-click="chooseItem(5)">fenxiang 5</button>-->
+        <!--</ons-dialog>-->
+
+    <!--</ons-template>-->
+</ons-page>
+<!--<ons-navigator animation="slide" var="myapp.navi">-->
+<!--<ons-page>-->
+<!--<ons-toolbar>-->
+<!--<div class="center">Sidle Menu Page</div>-->
+<!--</ons-toolbar>-->
+<!--<p style="text-align: center">-->
+<!--<ons-button modifier="light" ng-click="myapp.navi.pushPage('sidlepage.html');">Go to Sidle Menu Page</ons-button>-->
+<!--</p>-->
+<!--</ons-page>-->
+<!--</ons-navigator>-->
+
+
+<script>
+
+//    var module = angular.module('myapp', ['onsen'])
+//    module.controller('NotificationController', function ($scope) {
+//        $scope.openDialog = function () {
+//
+//                ons.createDialog('material.html').then(function (alertDialog) {
+//                    console.log(alertDialog);
+//                    alertDialog.show();
+//                });
+//
+//
+//    }
+//
+//       chooseItem = function(item){
+//
+//            alert(item+$scope.inputtest);
+//        }
+//        $scope.alert = function (material) {
+//            ons.notification.alert({
+//                message: 'An error has occurred!',
+//                modifier: material ? 'material' : undefined
+//            });
+//        }
+//
+//        $scope.confirm = function (material) {
+//            var mod = material ? 'material' : undefined;
+//
+//
+//            ons.notification.alert({
+//                title: "登录失败",
+//                buttonLabel:"确定",
+//                message: "hhahd"
+//            });
+//
+//            ons.notification.confirm({
+//                title:null,
+//                message: " ", //'请选择图片来源',
+//                buttonLabels:['手机拍照','从相册选择','取消'],
+//                cancelable:true,
+//                modifier: mod,
+//                callback: function (idx) {
+//                    alert("you have pressed : "+idx);
+//                    window.open("http://www.example.com/anotherpage.html");
+////                    switch (idx) {
+////                        case 0:
+////                            ons.notification.alert({
+////                                message: 'You pressed "Cancel".',
+////                                modifier: mod
+////                            });
+////                            break;
+////                        case 1:
+////                            ons.notification.alert({
+////                                message: 'You pressed "OK".',
+////                                modifier: mod
+////                            });
+////                            break;
+////                    }
+//                }
+//            });
+//        }
+//
+//        $scope.prompt = function (material) {
+//            var mod = material ? 'material' : undefined;
+//            ons.notification.prompt({
+//                message: "Please enter your age",
+//                modifier: mod,
+//                callback: function (age) {
+//                    ons.notification.alert({
+//                        message: 'You are ' + parseInt(age || 0) + ' years old.',
+//                        modifier: mod
+//                    });
+//                }
+//            });
+//        }
+//    });
+</script>
+</body>
+
+</html>

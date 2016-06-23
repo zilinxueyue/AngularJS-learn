@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-file-upload.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="MyCtrl">
+    <input type="text" ng-model="myModelObj">
+
+    <button ng-click="sendrequest()">Send Http Request</button>
+</div>
+
+
+
+<!--</div>-->
+<script>
+    var app=angular.module('myApp',[])
+    app.controller('MyCtrl',["$scope","$http","$httpParamSerializerJQLike",function($scope,$http,$httpParamSerializerJQLike){
+         $scope.sendrequest=function(){
+
+             var postData={
+                 id:"110",
+                 tname:"Alvin",
+                 "action":"TestServletImpl",
+                 "method":"getTestName",
+                 strdata:JSON.stringify([{name:"1",age:12},{name:"2",age:22},{name:"3",age:32}]),
+                 strfiledata:JSON.stringify(["a","b","c"])
+             };
+             $http({
+                 method: 'POST',
+                 url:"http://9.125.151.100:8080/Test/",//?action=TestServletImpl&method=getTestName",
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+                 data: $httpParamSerializerJQLike(postData)
+             })
+                     .success(function(result){
+
+                     })
+                     .error(function(error){
+
+                     });
+         }
+
+    }])
+
+
+
+    app.factory('uploadService', ["$q", "$http", function($q, $http, $response){
+        var uploadRequests = function(postData){
+
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            //$http.post("http://9.125.151.127:8080/LDDataServer/?action=User&cmd=login&appMobileNo="+mobileNo+"&appPwd="+pwd)
+//        alert("the post data info is : " + postData);
+//        var fd = new FormData();
+//        angular.forEach(postData, function (val, key) {
+//            fd.append(key, val);
+//        });
+//        var args = {
+//            method: 'POST',
+//            url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//            data: fd,
+//            headers: {'Content-Type': undefined},
+//            transformRequest: angular.identity
+//        };
+//         alert(fd);
+//        $http.defaults.headers.post='Content-Type: undefined';
+            $http.post('http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile').success(function(result) {
+//                    if(angular.equals("1",result.code)) {
+//                        alert("user app id"+result.data[0].app_User_Id);
+                        deferred.resolve(result);
+//                    }else{
+//                        deferred.reject(result);
+//                    }
+//                })
+                    })
+                    .error(function(error){
+                        //alert("http get error "+error);
+                        deferred.reject(error);
+                    });
+            return  promise;;
+        }
+        return {
+            uploadRequests: uploadRequests
+        };
+    }]);
+    //app.controller('MyCtrl', ['uploadService',function(uploadService,$scope, fileReader,$http){
+    //    $scope.getFile = function () {
+    //        fileReader.readAsDataUrl($scope.file, $scope).then(
+    //                function(result) {
+    //                    $scope.imageSrc = result;
+    //                });
+    //    };
+    //
+    //    $scope.fileUpload= function(){
+    //        alert("image upload start....");
+    //        var postData = {
+    //            vacationType: 'type',
+    //            reason: 'reason',
+    //            familyRelation: "",
+    //            startTime: 3/1/2016,
+    //            endTime: 3/1/2016,
+    //            fileName: $scope.imageSrc,
+    //            workDelivers: "workDelivers",
+    //            ccmailNickNames: "sendPersons",
+    //            realDays: ""
+    //        };
+    //
+    //        var fd = new FormData();
+    //        angular.forEach(postData, function (val, key) {
+    //            fd.append(key, val);
+    //        });
+    //        var args = {
+    //            method: 'POST',
+    //            url: 'http://9.125.151.89:8080/LDDataServer?action=Forum&cmd=doFile',
+    //            data: fd,
+    //            headers: {'Content-Type': undefined},
+    //            transformRequest: angular.identity
+    //        };
+    //        uploadService.uploadRequests(args).then(function(result){
+    //            alert("upload success");
+    //
+    //        },function(error){
+    //            alert("upload failed "+error);
+    //        })
+    //
+    ////        alert("image upload end....");
+    //    };
+    //}]);
+
+</script>
+</body>
+
+</html>

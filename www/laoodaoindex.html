@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+</head>
+<body ng-app="appLaooDao">
+<ons-page>
+    <ons-navigator animation="none" var="appLaooDao.navi">
+        <ons-tabbar>
+            <ons-tab label="田管"
+                     page="farmland_manage.html"
+                     active="true"></ons-tab>
+            <ons-tab label="订单"
+                     page="order.html"></ons-tab>
+            <ons-tab label="论坛"
+                     page="conmunity.html"></ons-tab>
+            <ons-tab label="会员"
+                     page="vip.html">
+            </ons-tab>
+        </ons-tabbar>
+    </ons-navigator>
+</ons-page>
+</body>
+<script>
+    var app = angular.module('appLaooDao', ['onsen'])
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>农田管理</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/myContrJs.js"></script>
+
+</head>
+<body ng-app="appTianGuan" ng-controller="itemsDataContrl">
+
+<ons-page>
+<ons-toolbar>
+    <div class="center">农田管理</div>
+    <div class="right">新增</div>
+
+</ons-toolbar>
+<ons-scroller>
+    <ul class="list" ng-repeat="item in titems">
+        <li class="list__item center" ><label>{{item.tianName}} </label><label>最近操作： {{item.latelyOperation}}</label></li>
+    </ul>
+<ons-list>
+    <ons-list-item modifier="chevron" onclick="location.href='tianDetails.html'" ng-repeat="item in [{tianName:'棉花100亩',latelyOperation:'播种 2/14'},{tianName:'葡萄100亩',latelyOperation:'播种 2/14'},{tianName:'香蕉100亩',latelyOperation:'播种 2/14'}]"  >
+        <ons-row >
+            <ons-col width="33%">&nbsp&nbsp&nbsp&nbsp{{$index + 1}}</ons-col>
+            <ons-col class="col-center">{{item.tianName}}</ons-col>
+            <ons-col>最近操作： {{item.latelyOperation}}</ons-col>
+        </ons-row>
+    </ons-list-item>
+
+</ons-list>
+</ons-scroller>
+</ons-page>
+</body>
+<script>
+//    var module = ons.bootstrap('appTianGuan', []);
+//    module.controller('itemsDataContrl', function($scope) {
+//        ons.ready(function(){
+////             $scope.items=[{tianName:'棉花100亩',latelyOperation:'播种 2/14'},{tianName:'葡萄100亩',latelyOperation:'播种 2/14'},{tianName:'香蕉100亩',latelyOperation:'播种 2/14'}];
+//            $scope.goDetails= function(item){
+//                alert(item.tianName + 'hhdsh');
+//            }
+//        });
+//
+//    });
+    //var module= ons.bootstrap('appTianGuan', [])
+    // var app = ons.bootstrap('appTianGuan', [])
+//    var app = angular.module('appTianGuan',[])
+//
+//    app.controller('itemsDataContrl',function($scope){
+//        $scope.items=[{tianName:'棉花100亩',latelyOperation:'播种 2/14'},{tianName:'葡萄100亩',latelyOperation:'播种 2/14'},{tianName:'香蕉100亩',latelyOperation:'播种 2/14'}];
+//        $scope.goDetails= function(item){
+//            alert(item.tianName);
+//        }
+//    })
+
+    //   var module = ons.bootstrap('appTianGuan', []);
+    //   module.controller('itemsDataContrl', function($scope) {
+    //       ons.ready(function(){
+    //           $scope.items=[{tianName:'棉花100亩',latelyOperation:'播种 2/14'},{tianName:'葡萄100亩',latelyOperation:'播种 2/14'},{tianName:'香蕉100亩',latelyOperation:'播种 2/14'}];
+    //       });
+
+    //  });
+</script>
+</html>

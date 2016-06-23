@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="NotificationController">
+<ons-page >
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>Back</ons-back-button>
+        </div>
+    </ons-toolbar>
+</ons-page>
+<h3>List of State 1 Items</h3>
+<ul >
+    <li ng-repeat="item in items">{{ item }}</li>
+     <button ng-click="openDialog()">go dialog page</button>
+</ul>
+
+<ons-template id="material.html">
+    <ons-dialog var="dialog" modifier="material" cancelable>
+        <div class="share-container">
+            <ul class="share">
+                <li>
+                    <img src="images/icon-wechat.svg" alt="">微信
+                </li>
+                <li>
+                    <img src="images/icon-moments.svg" alt="">朋友圈
+                </li>
+                <li>
+                    <img src="images/icon-qq.svg" alt="">QQ
+                </li>
+            </ul>
+            <a href="">取消</a>
+        </div>
+    </ons-dialog>
+</ons-template>
+
+</body>
+</html>

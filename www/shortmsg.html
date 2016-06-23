@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp"  ng-controller="msgContrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+</head>
+<body >
+  <button ng-click="sendShortMsg()">Send code </button>
+  <timerbutton show-timer="true" timeout="mytime">Hello There</timerbutton>
+  <button ng-click="setTimeout()" ng-disabled="timer_button"><span >daojishi</span>&nbsp<span ng-if="myshowTimer">({{ mytimerCount / 1000 }}s)</span></button>
+</body>
+
+<script>
+    var app= angular.module("myApp",[]);
+            app.controller("msgContrl",["$scope","$http","$httpParamSerializerJQLike","$interval",function($scope,$http,$httpParamSerializerJQLike,$interval){
+                $scope.mytime=60000;
+                $scope.setTimeout=function(){
+                    $scope.timer_button = true;
+                    $scope.mytimerCount = 6000;
+                    $scope.myshowTimer = true;
+                    var counter = $interval(function(){
+                        $scope.mytimerCount = $scope.mytimerCount - 1000;
+                        if($scope.mytimerCount === 0){
+                            $interval.cancel(counter);
+                            $scope.myshowTimer = false;
+                            $scope.timer_button = false;
+                        }
+                    }, 1000);
+
+                };
+                $scope.sendShortMsg=function(){
+
+                     alert("send message");
+//                     http://106.ihuyi.cn/webservice/sms.php?method=Submit
+                     var createCode=function ()
+                     {
+                         code = "";
+                         var codeLength = 6;//验证码的长度
+                         var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//所有候选组成验证码的字符，当然也可以用中文的
+
+                         for(var i=0;i<codeLength;i++)
+                         {
+                             var charIndex = Math.floor(Math.random()*36);
+                             code +=selectChar[charIndex];
+
+                         }
+                         return code;
+                     };
+                     var postData={
+                         method:'Submit',
+                         account:"cf_laoodao",
+                         password:"laoodao123",
+                         mobile:"13518178959",
+                         content:"您的验证码是：234789。请不要把验证码泄露给其他人。"
+                     };
+                     var data=$httpParamSerializerJQLike(postData);
+                     alert(createCode());
+                             $http({
+                                 method: 'POST',
+                                 url:'http://106.ihuyi.cn/webservice/sms.php?method=Submit',
+                                 headers: {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'},
+                                 data:data// tranjsontoparam(postData)
+                             }).success(function(result){
+                                    console.log(result);
+                                     })
+                                     .error(function(error){
+
+                                     });
+                 }
+
+            }]);
+    app.directive('timerbutton', function($timeout, $interval){
+        return {
+            restrict: 'AE',
+            transclude: true,
+            scope: {
+                showTimer: '=',
+                onClick: '&',
+                timeout: '='
+            },
+            link: function(scope, element, attrs){
+                scope.timer = true;
+                scope.timerCount = scope.timeout;
+                var counter = $interval(function(){
+                    scope.timerCount = scope.timerCount - 1000;
+                }, 1000);
+
+                $timeout(function(){
+                    scope.timer = false;
+                    $interval.cancel(counter);
+                    scope.showTimer = false;
+                }, scope.timeout);
+            },
+            template: '<button ng-click="onClick()" ng-disabled="timer"><span ng-transclude></span>&nbsp<span ng-if="showTimer">({{ timerCount / 1000 }}s)</span></button>'
+        };
+    });
+
+</script>
+</html>

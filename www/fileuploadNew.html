@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-file-upload.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="contrl">
+<div  >
+    <!--<form class="form-horizontal" name="form">-->
+        <!--<div class="form-line">-->
+            <!--<label>请选择证书文件：</label><span class="small-tip">证书文件只支持.pem格式，文件大小1M以内</span>-->
+            <!--<div class="choose-file-area">-->
+                <!--<input class="file-name" type="text" readonly="readonly" ng-model="fileItem.name"/>-->
+                <!--<a href="javascript:;" class="choose-book">-->
+                    <!--<input type="file" name="certificate" nv-file-select uploader="uploader" ng-click="clearItems()"/>浏览-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-line">-->
+            <!--<label>请选择私钥文件：</label><span class="small-tip">私钥文件只支持.key格式，文件大小1M以内</span>-->
+            <!--<div class="choose-file-area">-->
+                <!--<input class="file-name" type="text" readonly="readonly" ng-model="fileItem1.name"/>-->
+                <!--<a href="javascript:;" class="choose-key">-->
+                    <!--<input type="file" name="key" nv-file-select uploader="uploader1" ng-click="clearItems1()"/>浏览-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <input type="file" file-model="myFile"/>
+    <div class="col-md-12">
+        <img ng-src="{{imageSrc}}" style="max-width:300px;max-height:300px;margin:0 auto;display:block;" />
+    </div>
+
+        <button type="button" ng-click="uploadFile()">提交</button>
+    <!--</form>-->
+</div>
+
+</body>
+<script>
+    var app = angular.module('myApp', [] );
+
+    var param = function(obj) {
+        var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+
+        for(name in obj) {
+            value = obj[name];
+
+            if(value instanceof Array) {
+                for(i=0; i<value.length; ++i) {
+                    subValue = value[i];
+                    fullSubName = name + '[' + i + ']';
+                    innerObj = {};
+                    innerObj[fullSubName] = subValue;
+                    query += param(innerObj) + '&';
+                }
+            }
+            else if(value instanceof Object) {
+                for(subName in value) {
+                    subValue = value[subName];
+                    fullSubName = name + '[' + subName + ']';
+                    innerObj = {};
+                    innerObj[fullSubName] = subValue;
+                    query += param(innerObj) + '&';
+                }
+            }
+            else if(value !== undefined && value !== null)
+                query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+        }
+
+        return query.length ? query.substr(0, query.length - 1) : query;
+    };
+//    ,function($httpProvider){
+//        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+//        /**
+//         * Create by Alvin 3/1/2016
+//         * add the function the translate the data to the json dta
+//         * @param {Object} obj
+//         * @return {String}
+//         */
+//        var param = function(obj) {
+//            var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+//
+//            for(name in obj) {
+//                value = obj[name];
+//
+//                if(value instanceof Array) {
+//                    for(i=0; i<value.length; ++i) {
+//                        subValue = value[i];
+//                        fullSubName = name + '[' + i + ']';
+//                        innerObj = {};
+//                        innerObj[fullSubName] = subValue;
+//                        query += param(innerObj) + '&';
+//                    }
+//                }
+//                else if(value instanceof Object) {
+//                    for(subName in value) {
+//                        subValue = value[subName];
+//                        fullSubName = name + '[' + subName + ']';
+//                        innerObj = {};
+//                        innerObj[fullSubName] = subValue;
+//                        query += param(innerObj) + '&';
+//                    }
+//                }
+//                else if(value !== undefined && value !== null)
+//                    query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+//            }
+//
+//            return query.length ? query.substr(0, query.length - 1) : query;
+//        };
+//
+//        // Override $http service's default transformRequest
+//        $httpProvider.defaults.transformRequest = [function(data) {
+//            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+//        }
+//        ]
+//    });
+    app.directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs, ngModel) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+                element.bind('change', function(event){
+                    scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                    //附件预览
+                    scope.file = (event.srcElement || event.target).files[0];
+                    scope.getFile();
+                });
+            }
+        };
+    }]);
+    app.factory('fileReader', ["$q", "$log", function($q, $log){
+        var onLoad = function(reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.resolve(reader.result);
+                });
+            };
+        };
+        var onError = function (reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.reject(reader.result);
+                });
+            };
+        };
+        var getReader = function(deferred, scope) {
+            var reader = new FileReader();
+            reader.onload = onLoad(reader, deferred, scope);
+            reader.onerror = onError(reader, deferred, scope);
+            return reader;
+        };
+        var readAsDataURL = function (file, scope) {
+            var deferred = $q.defer();
+            var reader = getReader(deferred, scope);
+            reader.readAsDataURL(file);
+            return deferred.promise;
+        };
+        return {
+            readAsDataUrl: readAsDataURL
+        };
+    }]);
+
+
+    app.controller("contrl",['$scope','$http','fileReader',function($scope,$http,fileReader){
+
+                $scope.getFile = function () {
+                    fileReader.readAsDataUrl($scope.file, $scope)
+                            .then(function(result) {
+                                $scope.imageSrc = result;
+                            });
+                };
+
+                $scope.uploadFile=function(){
+                    alert("start upload file");
+//                    var req = {
+//                        method: 'POST',
+//                        url: 'http://9.125.151.114:8080/LDDataServer?action=User&cmd=login&app_Mobile_No=13000000000&app_Pwd=123 ',
+//                        headers: { 'Content-Type': undefined},
+//                        data: { test: 'test' },
+//                    }
+                    var fd = new FormData();
+                    fd.append("imageFile",$scope.myFile);
+//                    fd.append("action","Forum");
+//                    fd.append("cmd","doFile");
+
+                  //  var postData={imageFile:$scope.myFile} //,action:'Forum',cmd:'doFile'};
+//                    $http({method: 'post', url: 'http://9.125.151.114:8080/LDDataServer/FileUpload',postData}).
+//                    success(function(data, status, headers, config) {
+//                        alert(data+"");
+//
+//                    });
+
+                    var postData={app_mobile_no:'18000000000',app_pwd:'123456'};
+
+//                    var logindata = new FormData();
+//                    logindata.append('app_mobile_no','18000000000');
+//                    logindata.append('app_pwd','123456');
+//                    $http({
+//                        method: 'POST',
+//                        url: 'http://9.125.151.114:8080/LDDataServer/?action=User&cmd=login',
+//                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+//                        data: postData
+//                    }).success(function () {});
+//                    $http.post("http://9.125.151.114:8080/LDDataServer/?action=User&cmd=login",param(postData))
+//                            .success(function(result){
+//
+//                            })
+//                            .error(function(error){
+//                                //alert("http get error "+error);
+//
+//                            });
+
+//                    var postData={app_mobile_no:'18000000000',app_pwd:'123456'};
+                    $http({
+                        method: 'POST',
+                        url: 'http://9.125.151.114:8080/LDDataServer/?action=File&cmd=doFile',
+                        headers: {'Content-Type': undefined},
+//                        transformRequest: function(obj) {
+//                            var str = [];
+//                            for(var p in obj)
+//                                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//                            return str.join("&");
+//                        },
+                        data: fd
+                    }).success(function () {});
+
+
+
+//                    $http.post('http://9.125.151.114:8080/LDDataServer?action=Forum&cmd=doFile',fd
+//                    ).success(function(data){
+//
+//                    }).error(function(error){
+//                        //  alert("http get error "+error);
+//
+//                    });
+                    //'http://9.125.151.114:8080/LDDataServer?action=Forum&cmd=doFile',{test:'test'}    ,{'Content-Type':'application/x-www-form-urlencoded'}
+
+//                    $http.post('http://9.125.151.114:8080/LDDataServer?action=User&cmd=login&app_Mobile_No=13000000000&app_Pwd=123')
+//                            .success(function(result){
+//                                //alert("http get success"+result.data);
+//
+//                            })
+//                            .error(function(error){
+//                                //  alert("http get error "+error);
+//
+//                            });
+//
+// $http({
+//                        method: 'POST',
+//                        url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//                        data: {name: 'hehe'},
+//                        headers: {
+//                            'Content-Type: undefined'
+//                        }
+//                    })
+//                  }).success(function(d) {
+//                //请求成功
+//
+//            }).error(function(err) {
+//                console.log(err);
+//
+//            });
+                }
+
+            }])
+//            .controller('contrl',function($scope,$http){
+//        $scope.uploadFile = function(){
+//            alert("start upload file");
+//            $http({
+//                method: 'POST',
+//            url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//            data: {name:'hehe'},
+//             headers: {
+//            'Content-Type: undefined'
+//            }
+//        }).success(function(d) {
+//                //请求成功
+//                cb(d);
+//            }).error(function(err, status) {
+//                console.log(err);
+//                cb(err);
+//            });
+//
+//    }
+//    )
+//    app.controller('contrl',['$scope', '$http', function($scope,$http) {
+//        $scope.uploadStatus = $scope.uploadStatus1 = false; //定义两个上传后返回的状态，成功获失败
+//        var uploader = $scope.uploader = new FileUploader({
+//            url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//            queueLimit: 1,   //文件个数
+//            removeAfterUpload: true  //上传后删除文件
+//        });
+//        var uploader1 = $scope.uploader1 = new FileUploader({
+//            url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//            queueLimit: 1,
+//            removeAfterUpload: true
+//        });
+//        $scope.clearItems = function(){  //重新选择文件时，清空队列，达到覆盖文件的效果
+//            uploader.clearQueue();
+//        }
+//        $scope.clearItems1 = function(){
+//            uploader1.clearQueue();
+//        }
+//        uploader.onAfterAddingFile = function(fileItem) {
+//            $scope.fileItem = fileItem._file;  //添加文件之后，把文件信息赋给scope
+//        };
+//        uploader1.onAfterAddingFile = function(fileItem) {
+//            $scope.fileItem1 = fileItem._file;  //添加文件之后，把文件信息赋给scope
+//            //能够在这里判断添加的文件名后缀和文件大小是否满足需求。
+//        };
+//        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+//            $scope.uploadStatus = true;  //上传成功则把状态改为true
+//        };
+//        uploader1.onSuccessItem = function(fileItem,response, status, headers){
+//            $scope.uploadStatus1 = true;
+//        }
+//        $scope.UploadFile = function(){
+//            alert("start upload file");
+//            $http({
+//                method: 'POST',
+//            url: 'http://9.112.55.89:8080/LDDataServer?action=Forum&cmd=doFile',
+//            data: {name:'hehe'},
+//             headers: {
+//            'Content-Type: undefined'
+//            }
+//        }).success(function(d) {
+//                //请求成功
+//                cb(d);
+//            }).error(function(err, status) {
+//                console.log(err);
+//                cb(err);
+//            });
+//           // uploader.uploadAll();
+//         //  uploader1.uploadAll();
+////            if(status){
+////                if(status1){
+////                    alert('上传成功！');
+////                }else{
+////                    alert('证书成功！私钥失败！');
+////                }
+////            }else{
+////                if(status1){
+////                    alert('私钥成功！证书失败！');
+////                }else{
+////                    alert('上传失败！');
+////                }
+////            }
+//        }
+//    }])
+</script>
+</html>

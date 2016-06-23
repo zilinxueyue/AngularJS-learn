@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buttons</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" >
+    <link rel="stylesheet" href="css/ionicons.min.css" >
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body>
+<ons-page>
+    <ons-toolbar>
+        <div class="center">Buttons</div>
+    </ons-toolbar>
+
+    <h3>Material Buttons</h3>
+    <ons-button modifier="material">Button</ons-button>
+    <ons-button modifier="material" disabled>Button</ons-button>
+    <ons-button modifier="material">
+        <ons-ripple></ons-ripple>
+        Ripple effect
+    </ons-button>
+
+
+
+    <h3>Flat Design</h3>
+    <div style="text-align: center" class="content-padded" ng-controller="ButtonsController">
+
+        <ons-button>Normal</ons-button>
+        <ons-button modifier="light">Light</ons-button>
+        <ons-button modifier="outline">Outline</ons-button>
+        <ons-button modifier="cta">CTA</ons-button>
+        <ons-button modifier="quiet">Quiet</ons-button>
+
+        <br>
+        <br>
+
+        <ons-button modifier="large">large</ons-button>
+
+        <br>
+
+        <ons-button modifier="large--cta">large--cta</ons-button>
+
+        <br>
+
+        <ons-button modifier="large--quiet">large--quiet</ons-button>
+
+        <br>
+
+        <ons-button disabled="true">Disabled</ons-button>
+
+    </div>
+    <div>
+
+        <ons-switch var="mySwitch" onchange="changed()"></ons-switch>
+        <br>
+        <input class="text-input" id="my-input">
+        <br>
+        <textarea class="textarea" id="my-textarea"></textarea>
+        <br>
+        <input type="search" class="search-input">
+
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" value="checkbox">
+            <div class="checkbox__checkmark"></div>
+            <span class="ons-checkbox-inner"></span>
+        </label>
+        <br>
+        <label class="radio-button">
+            <input type="radio" value="radio">
+            <div class="radio-button__checkmark"></div>
+        </label>
+    </div>
+    <div>
+        <ons-row>
+            <ons-col width="50%"><ons-icon icon="fa-twitter">icon1</ons-icon></ons-col>
+            <br>
+            <ons-col>Text 1</ons-col>
+        </ons-row>
+        <ons-row>
+            <ons-col width="50%"><ons-icon icon="fa-twitter">icon2</ons-icon></ons-col>
+            <br>
+            <ons-col>Text2</ons-col>
+        </ons-row>
+    </div>
+</ons-page>
+</body>
+<script>
+    function changed() {
+        alert(mySwitch.isChecked() ? 'ON' : 'OFF');
+        mySwitch.setChecked(mySwitch.isChecked() ? 'ON' : 'OFF');
+    }
+</script>
+<style>
+    .ons-button[modifier="material"] {
+        margin: 4px 0px;
+    }
+</style>
+<script>
+    ons.bootstrap()
+            .controller("ButtonsController", function($scope) {
+                $scope.spin1 = false;
+                $scope.spin2 = false;
+                $scope.spin3 = false;
+                $scope.switchSpin1 = function() {
+                    $scope.spin1 = ($scope.spin1 == false);
+                }
+                $scope.switchSpin2 = function() {
+                    $scope.spin2 = ($scope.spin2 == false);
+                }
+                $scope.switchSpin3 = function() {
+                    $scope.spin3 = ($scope.spin3 == false);
+                }
+            });
+    ons.ready(function() {
+        // Hide Cordova splash screen when Onsen UI is loaded completely
+        // API reference: https://github.com/apache/cordova-plugin-splashscreen/blob/master/doc/index.md
+       alert("ons ready");
+        var elm = $("<ons-button>Compile add New Button</ons-button>");
+        elm.appendTo($("html")); // Insert to the DOM first
+        ons.compile(elm[0]);
+        alert("Hello"+elm);
+    });
+</script>
+
+</html>

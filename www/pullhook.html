@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pull Hook</title>
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" >
+    <link rel="stylesheet" href="css/ionicons.min.css" >
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+</head>
+<body>
+<ons-page ng-controller="DemoController">
+    <!--<ons-pull-hook ng-action="load($done)" var="loader">-->
+    <!--<span ng-switch="loader.getCurrentState()">-->
+          <!--<span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>-->
+    <!--<span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>-->
+    <!--<span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>-->
+    <!--</span>-->
+    <!--</ons-pull-hook>-->
+    <ons-page>
+    <ons-pull-hook ng-action="myload($done)">
+        Pull to refresh
+    </ons-pull-hook>
+    </ons-page>
+    <ons-page>
+    <ons-toolbar>
+        <div class="center">Pull to refresh</div>
+        <div class="right">
+            <ons-toolbar-button ng-click="reset()">Reset</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+
+    <ons-list>
+        <ons-list-item ng-show="items.length === 0">
+            <div class="info">
+                Pull down to fetch items
+            </div>
+        </ons-list-item>
+        <ons-list-item class="item" ng-repeat="item in items">
+            <ons-row>
+                <ons-col width="80px">
+                    <img ng-src="http://lorempixel.com/60/60/?{{item.rand}}" class="item-thum"></img>
+                </ons-col>
+                <ons-col>
+                    <p class="item-desc">{{ item.desc }}</p>
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+    </ons-list>
+    </ons-page>
+    <!--<ons-page>-->
+    <!--<ons-pull-hook ng-action="upload($done)">-->
+        <!--Push to refresh-->
+    <!--</ons-pull-hook>-->
+    <!--</ons-page>-->
+</ons-page>
+</body>
+<style>
+    .left {
+        text-align: left;
+    }
+
+    img {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+    }
+
+    ons-list-item {
+        line-height: 22px !important;
+    }
+
+    .info {
+        margin-top: 20px;
+        text-align: center;
+        opacity: 0.75;
+    }
+</style>
+<script>
+//    ons.bootstrap()
+            angular.module("myApp",["onsen"])
+            .controller('DemoController', function($scope, $timeout, $http) {
+                $scope.items = [];
+                $scope.upload=function($done){
+                    alert("上拉");
+                }
+                $scope.myload = function($done) {
+                    var paths=[];
+
+                   var data =  {"pic_path":["http://9.125.151.127:8080/user_images/app/abcdefg_20160325174923837.jpg","http://9.125.151.127:8080/user_images/app/abcdefg_20160325174923838.jpg"]};
+                    console.log(data.pic_path);
+                    paths=data.pic_path;
+                    console.log(paths);
+                    $timeout(function() {
+                        $http.jsonp('http://numbersapi.com/random/year?callback=JSON_CALLBACK')
+                                .success(function(data) {
+                                    $scope.items.unshift({
+                                        desc: data,
+                                        rand: Math.random()
+                                    });
+                                })
+                                .error(function() {
+                                    $scope.items.unshift({
+                                        desc: 'No data',
+                                        rand: Math.random()
+                                    });
+                                })
+                                .finally(function() {
+                                    $done();
+                                });
+                    }, 1000);
+                };
+                $scope.reset = function() {
+                    $scope.items.length = 0;
+                }
+            });
+</script>
+</html>

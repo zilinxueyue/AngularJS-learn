@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <link rel="stylesheet" href="css/onsenui.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/onsenui.js"></script>
+    <script src="js/onsenui.min.js"></script>
+    <script>
+        ons.bootstrap();
+    </script>
+</head>
+<body>
+    <ons-tabbar var="tabbar">
+        <ons-tabbar-item
+            icon="home"
+            label="Home"
+            page="navigator.html"
+            active="true"></ons-tabbar-item>
+        <ons-tabbar-item
+            icon="comment"
+            label="Comments"
+            page="page2.html"></ons-tabbar-item>
+        <ons-tabbar-item
+            icon="login"
+            label="Login"
+            page="login.html"></ons-tabbar-item>
+        <ons-tabbar-item
+                icon="user"
+                label="Home"
+                page="angular.html"
+                active="true"></ons-tabbar-item>
+    </ons-tabbar>
+
+</body>
+</html>

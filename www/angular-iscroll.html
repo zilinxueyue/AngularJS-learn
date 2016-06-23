@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtroll">
+<head>
+    <meta charset="UTF-8">
+    <title>angular iscroll</title>
+    <script src="js/angular.js"></script>
+    <script src="js/iscroll.js"></script>
+    <script src="js/d-scroll.js"></script>
+
+</head>
+<body>
+
+        <div id="myList" class="detailsOuterDiv">
+            <div id="scroller" smoothscroll="myList,320">
+                <div ng-repeat="phone in phones " class="detailGrid">
+                    <div id="{{$index}}">
+                        {{phone}}
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script>
+var app = angular.module("myApp",["myScrollModule"])
+    app.controller("myCtroll",function($scope){
+        $scope.phones = [1,2,3,4];
+    })
+
+</script>
+</html>
