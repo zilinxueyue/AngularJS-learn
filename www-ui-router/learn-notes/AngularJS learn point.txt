@@ -90,3 +90,22 @@ ui-sref-opts="{reload: true}"
 12.use ui-router
  When use it with html. do not add the controller on the body. ---- ui-view will add the html into index.html but there will only have on body for the html.
  So if add the controller on the other html's body it's will not include into the view.
+
+
+13. angularJs timer use
+        $scope.clock = {
+            now : new Date()
+        };
+        //var updateClock = function() {
+        //    $scope.clock.now = new Date()
+        //};
+        //setInterval(function() {
+        //    $scope.$apply(updateClock);
+        //}, 1000);
+        //updateClock();
+        /**
+         * this can be used to set the clock or user to set banner
+         */
+        var updateClock = $interval(function () {
+            $scope.clock.now = new Date()
+        }, 1000);
