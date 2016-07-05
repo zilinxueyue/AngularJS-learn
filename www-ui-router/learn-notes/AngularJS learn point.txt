@@ -137,7 +137,7 @@ ui-sref-opts="{reload: true}"
                    data-slide="next">&rsaquo;</a>
             </div>
 /**
- * 把下面的module 引入项目中
+ * 把下面的module 引入项目中  这段hack一定要在ui-bootstrap-tpls.js后引入。
  */
 angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
     .controller('CarouselController', ['$scope', '$timeout', '$transition', '$q', function        ($scope, $timeout, $transition, $q) {
