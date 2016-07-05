@@ -109,3 +109,42 @@ ui-sref-opts="{reload: true}"
         var updateClock = $interval(function () {
             $scope.clock.now = new Date()
         }, 1000);
+        
+        
+        
+14.使用bootstrap的carousel报错时 把新加的module引入项目即可
+ <div id="myCarousel" class="carousel slide">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" ng-repeat="aditem in homeaditems" data-slide-to="{{$index}}" class="{{$index==0?'active': ''}}" ></li>
+                    <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+                    <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <div ng-repeat="aditem in homeaditems"  class="item {{$index==0?'active': ''}}">
+                        <img src="{{aditem.pictureUrl}}" alt="">
+                    </div>
+                    <!--<div class="item">-->
+                        <!--<img src="/wp-content/uploads/2014/07/slide2.png" alt="Second slide">-->
+                    <!--</div>-->
+                    <!--<div class="item">-->
+                        <!--<img src="/wp-content/uploads/2014/07/slide3.png" alt="Third slide">-->
+                    <!--</div>-->
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="carousel-control left" href="#myCarousel"
+                   data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel"
+                   data-slide="next">&rsaquo;</a>
+            </div>
+/**
+ * 把下面的module 引入项目中
+ */
+angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
+    .controller('CarouselController', ['$scope', '$timeout', '$transition', '$q', function        ($scope, $timeout, $transition, $q) {
+    }]).directive('carousel', [function() {
+    return {
+
+    }
+}]);
