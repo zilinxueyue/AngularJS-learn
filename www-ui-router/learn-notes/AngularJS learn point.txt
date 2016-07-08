@@ -1,4 +1,4 @@
-﻿AngularJS learn point
+﻿AngularJS learn point  IDE intelliJ 注册方法：help-》 register -> license server 输入：  http://idea.lanyus.com
 
 1. if express
 
