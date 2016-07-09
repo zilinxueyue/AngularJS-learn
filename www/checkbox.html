@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <script src="js/angular.js"></script>
+
+</head>
+<body ng-app="myApp" ng-controller="MyCtrl">
+<ul>
+    <li ng-repeat="item in data">
+        <input type="checkbox" ng-checked="item.checked" ng-click="item.checked = !item.checked "> {{item.Title}}
+    </li>
+
+    <button ng-click="checkItems()">Do</button>
+    <button ng-click="showResult()">Show</button>
+</ul>
+
+<script>
+    var app=angular.module('myApp',[])
+    app.controller('MyCtrl',function($scope){
+
+        $scope.data = [ { Type: 1, checked: false, Title: 'Item A'},{ Type: 2, checked: false, Title: 'Item B'},{ Type:3, checked: false, Title: 'Item 3'},{ Type: 4, checked: false, Title: 'Item 4'},{ Type: 5, checked: false, Title: 'Item 5'},];
+        var arr_to_be_checked = [1,3,5];
+        $scope.checkItems = function () {
+            var i;
+            angular.forEach(arr_to_be_checked,function(value){
+                $scope.data[value].checked = true;
+            })
+
+        };
+//        $scope.checktest = function(hh){
+//
+//            console.log(hh);
+//        }
+
+        $scope.checkboxclick=function(flag){
+            console.log("---"+flag);
+        }
+
+        $scope.showResult = function(){
+            angular.forEach($scope.data,function(value){
+                console.log(value);
+            })
+
+        }
+
+
+
+    })
+
+</script>
+</body>
+</html>
