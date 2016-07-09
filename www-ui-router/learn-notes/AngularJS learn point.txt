@@ -1,4 +1,4 @@
-﻿AngularJS learn point
+﻿AngularJS learn point  IDE intelliJ 注册方法：help-》 register -> license server 输入：  http://idea.lanyus.com
 
 1. if express
 
@@ -33,6 +33,9 @@ like : below can not working (not sure whar happaned may be the ui-router config
 but use ng-if it's working 
 <ons-button modifier="large"  ng-if="login_app_user_id != subject.app_user_id" ui-sref="forumhome.detail.reply({subject_user_id:subject.subject_id,reply_user_id:login_app_user_id})">立即回复</ons-button>
     <ons-button modifier="large" ng-if="login_app_user_id == subject.app_user_id" ui-sref="forumhome.detail.edit">编辑帖子</ons-button>
+ 
+ more：
+   when used ui-serf on tag <a>. it will open a new page in browser.
 
 6.ng-options有以下格式的语法
  
@@ -146,3 +149,14 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 
     }
 }]);
+
+15.ui-router state 配置传多个参数
+.state('home.addtocart', {
+                    url: "/addtocart?productId&number",
+                    views: {
+                        homecontentview: {
+                            templateUrl: "page/add-to-cart.html"
+                        }
+                    }
+
+                })
