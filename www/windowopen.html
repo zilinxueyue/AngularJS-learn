@@ -6,119 +6,56 @@
     <script src="js/angular.js"></script>
 </head>
 <body>
-<select class="select-input select-input--transparent" name="" ng-model="selectitem" ng-options="land as land.name+'  '+land.area for land in landlist">
+
+<button ng-click="openNewWindow()">open new window</button>
+<select class="select-input select-input--transparent" name="" ng-model="selectitem"
+        ng-options="land as land.name+'  '+land.area for land in landlist">
     <option label="ff">-please select-</option>
-    </select>
+</select>
 
-<ui >
-    <li ng-repeat="img in images">
-        <img src="{{img.pic_path}}" alt="">
-    </li>
 
-</ui>
 <button ng-click="getSelection()">get select</button>
 
 
-<div ng-controller='cityCtrl'>
-    <label ng-class="{error: error.province}" >
-        省份：
-        <select ng-model="selected" ng-options="s.name for s in list" ng-change="c()" >
-            <option value="">--请选择--</option>
-        </select>
-    </label>
-    {{selected.child.length}}
-    <label ng-show="selected.child.length" ng-class="{error: error.city}">
-        市/区：
-        <select ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()" >
-            <option value="">--请选择--</option>
-        </select>
-        {{selected2.child.length}}
-    </label>
-    <label ng-show="selected2.child.length" ng-class="{error: error.area}">
-        县级/区域：
-        <select ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()" >
-            <option value="">--请选择--</option>
-        </select>
-    </label>
-    <input type="submit" value="subimt" ng-click="submit()" />
-    <br />
-    {{selected.name}} {{selected2.name}} {{selected3.value}}
-
-</div>
-
-<div ng-controller='selectCityCtrl'>
-    <label ng-class="{error: error.province}" >
-        省份：
-        <select ng-model="selected1" ng-options="s.name for s in sarr1" ng-change="c()" >
-            <option value="">--请选择--</option>
-        </select>
-    </label>
-
-    <label ng-show="sarr2.length" ng-class="{error: error.city}">
-        市/区：
-        <select ng-model="selected2" ng-options="sh.name for sh in sarr2" ng-change="c2()" >
-            <option value="">--请选择--</option>
-        </select>
-        {{selected2.child.length}}
-    </label>
-    <label ng-show="sarr3.length" ng-class="{error: error.area}">
-        县级/区域：
-        <select ng-model="selected3" ng-options="x.name for x in sarr3" ng-change="c3()" >
-            <option value="">--请选择--</option>
-        </select>
-    </label>
-    <br />
-    {{selected.name}} {{selected2.name}} {{selected3.name}}
-
-    <button ng-click="callOther()">hh</button>
-
-</div>
 
 
 </body>
 <script>
-    angular.module('myApp',[])
-            .controller("myContrl",function($scope){
+    angular.module('myApp', [])
+            .controller("myContrl", function ($scope) {
+                var testjson = {id: 1, name: 'aa'};
+                console.log(testjson);
+                $scope.openNewWindow = function () {
 
-                $scope.landlist=[{
-                    id:1,
-                    name:"a",
-                    area:200
-                },{
-                    id:2,
-                    name:"b",
-                    area:100
-                }];
-
-                $scope.images=[{"pic_path":"http://9.125.151.127:8080/user_images/000000000000000000000062_20160323094953164.jpg"},{"pic_path":"http://9.125.151.127:8080/user_images/000000000000000000000062_20160323095236422.jpg"}]
-                $scope.getSelection=function(){
-                    //alertDialog("sadf");
-                    console.log($scope.selectitem);
+//                    var OpenWindow=window.open('dollare.html', 'newwindow', 'height=100, width=400, top=0,left=0, toolbar=no,menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+                    var OpenWindow=window.open("http://localhost:63342/LaoodaoShopWeb/www/index.html#/getorderinfo","laoodaoshop",'age=alvin');
+//                    OpenWindow.document.write("<TITLE>dollare雄仔工作室</TITLE>");
+//                    OpenWindow.document.write("<BODY BGCOLOR=#ffffff>");
+//                    OpenWindow.document.write("<h1>Hello!</h1>");
+//                    OpenWindow.document.write("的萨芬撒发放的萨芬的");
+//                    OpenWindow.document.write("</BODY>");
+//                    OpenWindow.document.write("test data");
+//                    OpenWindow.document.close();
                 }
-            })
+// window.open("<!DOCTYPE html> <html lang='en' > <head> <meta charset='UTF-8'><title>Title</title></head><body>sadfsd</body>","new window");
 
-            .controller('selectCityCtrl',['$scope', function ($scope) {
+    $scope.landlist = [{
+        id: 1,
+        name: "a",
+        area: 200
+    }, {
+        id: 2,
+        name: "b",
+        area: 100
+    }];
 
-                $scope.sarr1=[{id:'1',name:'北京'},{id:'2',name:'天津'},{id:'3',name:'南京'}];
-                $scope.sarr2=[{id:'1',name:'北京2'},{id:'2',name:'天津2'},{id:'3',name:'南京2'}];
-                $scope.sarr3=[{id:'1',name:'北京3'},{id:'2',name:'天津3'},{id:'3',name:'南京3'}];
-
-                $scope.selected1 = $scope.sarr1[0];  //{id:'2',name:'天津'} ;
-                $scope.selected2 =$scope.sarr2[1];  //{id:'3',name:'南京2'} ;
-                $scope.selected3 =$scope.sarr3[2];  //{id:'1',name:'北京3'} ;
-
-
-                $scope.callOther=function(){
-                     $scope.test();
-                }
-
-                $scope.test=function(){
-                    console.log("this is test funct");
-                }
-
-
-            }])
-   .controller('cityCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.images = [{"pic_path": "http://9.125.151.127:8080/user_images/000000000000000000000062_20160323094953164.jpg"}, {"pic_path": "http://9.125.151.127:8080/user_images/000000000000000000000062_20160323095236422.jpg"}]
+    $scope.getSelection = function () {
+        //alertDialog("sadf");
+        console.log($scope.selectitem);
+    }
+    })
+    .controller('cityCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.error = {};
         $scope.list = [];
 //        $http.get('list.json').success(function (data) {
@@ -150,7 +87,7 @@
             $scope.error.area = $scope.selected3 ? false : true;
         };
 
-        $scope.list=[
+        $scope.list = [
             {
                 "id": 0,
                 "name": "北京",

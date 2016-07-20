@@ -35,7 +35,7 @@ but use ng-if it's working
     <ons-button modifier="large" ng-if="login_app_user_id == subject.app_user_id" ui-sref="forumhome.detail.edit">编辑帖子</ons-button>
  
  more：
-   when used ui-serf on tag <a>. it will open a new page in browser.
+   when used ui-serf on tag <a>. should delete the "target" otherwise it will open a new page in browser.
 
 6.ng-options有以下格式的语法
  
