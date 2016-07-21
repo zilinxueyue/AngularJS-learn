@@ -24,16 +24,24 @@
              var postData={
                  id:"110",
                  tname:"Alvin",
-                 "action":"TestServletImpl",
-                 "method":"getTestName",
-                 strdata:JSON.stringify([{name:"1",age:12},{name:"2",age:22},{name:"3",age:32}]),
-                 strfiledata:JSON.stringify(["a","b","c"])
+//                 "action":"TestServletImpl",
+//                 "method":"getTestName",
+//                 strdata:JSON.stringify([{name:"1",age:12},{name:"2",age:22},{name:"3",age:32}]),
+//                 strfiledata:JSON.stringify(["a","b","c"])
              };
+
+             $http.defaults.headers.common.Authorization = 'Bearer ' + "dsaflsafjlk";
+//             $http.post('http://9.112.55.113:8080/ldshop/user/mdlogin.do', postData).then(function(response) {
+//                 console.log(response);
+//             });
              $http({
                  method: 'POST',
-                 url:"http://9.125.151.100:8080/Test/",//?action=TestServletImpl&method=getTestName",
-                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
-                 data: $httpParamSerializerJQLike(postData)
+                 url:"http://9.112.55.113:8080/ldshop/user/mdlogin.do",//?action=TestServletImpl&method=getTestName",
+//                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+//                     ,'Authorization':'safdlsalkf'
+//                 },
+                 data: postData,
+//                 timeout:1000
              })
                      .success(function(result){
 
