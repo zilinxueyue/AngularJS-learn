@@ -160,3 +160,14 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
                     }
 
                 })
+
+16：关于angularJS 锚点（）
+在页面定义标签 比如去下一个页面要光标指向顶部 就是在首页定义标签
+<a id="pagetop"></a>
+
+然后在需要光标指向首页的controller里面也引入'$location','$anchorScroll' 在在function代码中调用下面的方法
+
+   $location.hash('pagetop');
+
+        // call $anchorScroll()
+        $anchorScroll();
