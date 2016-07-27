@@ -134,13 +134,13 @@ ui-sref-opts="{reload: true}"
                     <!--</div>-->
                 </div>
                 <!-- 轮播（Carousel）导航 -->
-                <a class="carousel-control left" href="#myCarousel"
+                <a class="carousel-control left" href="#myCarousel" target="#myCarousel"
                    data-slide="prev">&lsaquo;</a>
-                <a class="carousel-control right" href="#myCarousel"
+                <a class="carousel-control right" href="#myCarousel" target="#myCarousel"
                    data-slide="next">&rsaquo;</a>
             </div>
 /**
- * 把下面的module 引入项目中   这段hack一定要在ui-bootstrap-tpls.js 后引入
+ * 把下面的module 引入项目中   这段hack一定要在ui-bootstrap-tpls.js 后引入   noted at <a> tab need add the target otherwise it will link to the href url not change the img
  */
 angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
     .controller('CarouselController', ['$scope', '$timeout', '$transition', '$q', function        ($scope, $timeout, $transition, $q) {
