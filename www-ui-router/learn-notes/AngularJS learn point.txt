@@ -171,3 +171,16 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 
         // call $anchorScroll()
         $anchorScroll();
+17.关于AngularJS controller 以及ui-router 同时使用造成多次请求的问题
+如下：
+<div ui-view="homecontentview" >
+   <div ng-controller="homeIndexContentCotrl1"> div 1</div>
+   <div ng-controller="homeIndexContentCotrl2"> div 2</div>
+</div>
+此时去替换homecontentview 会出现homeIndexContentCotrl1这个里面的js被重复执行 尤其是在里面发送一些http请求时，会造成重复请求。
+解决方法就是去掉2个并行的controller 改用一个 controller 在ui-view统一级别
+
+<div ui-view="homecontentview"  ng-controller="homeIndexContentCotrl">
+   <div > div 1</div>
+   <div> div 2</div>
+</div>
