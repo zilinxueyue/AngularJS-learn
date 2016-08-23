@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body onbeforeunload="RunOnBeforeUnload()">
+<body onbeforeunload="RunOnBeforeUnload()" onload="runOnLoad()">
+<a href="vip.html">fsadf</a>
 <script type="text/javascript">
 
     function RunOnBeforeUnload() {
         alert("leave?");
         window.event.returnValue = '关闭浏览器将退出系统.';
+    }
+    function runOnLoad(){
+        alert("back?");
     }
 //    var _t;
 //    window.onbeforeunload = function()

@@ -184,3 +184,38 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
    <div > div 1</div>
    <div> div 2</div>
 </div>
+
+18: date过滤器的用法：
+
+1.在html中用法：{{ date_expression | date : format : timezone}}
+
+实例：
+
+<span>{{1288323623006 | date:'medium'}}</span><br>
+
+ <span>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span><br>
+
+<span>{{'1288323623006' | date:'MM/dd/yyyy @ h:mma'}}</span><br>
+
+<span>{{'1288323623006' | date:"MM/dd/yyyy 'at' h:mma"}}</span><br>
+
+输出结果为：
+
+ Oct 29, 2010 11:40:23 AM
+
+ 2010-10-29 11:40:23 +0800
+
+10/29/2010 @ 11:40AM
+
+10/29/2010 at 11:40AM
+
+2.在javascript中的用法：$filter('date')(date, format, timezone)
+
+实例：
+
+var today = new Date();
+$scope.formatDate = $filter('date')(today, 'yyyy-MM-dd');
+
+输出结果为：
+
+2015-01-28
