@@ -7,8 +7,14 @@
     <script type="text/javascript">
         (function () {
             var app = angular.module("myApp", []);
-            app.controller("namesController", ["$scope", function ($scope) {
+            app.controller("namesController", ["$scope",'$filter', function ($scope,$filter) {
 
+                $scope.datetimelist=[1471412308000, 1470893737000, 1471239593000,1471325837000,1471153234000];
+
+//                angular.forEach(datetimelist,function(value,key){
+//                    console.log($filter('date')(value, 'yyyy-MM-dd HH:mm:ss'))
+//                })
+//
                 $scope.wordarr=['A','B','C','D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T','W','X','Y','Z'];
                 $scope.bandsfilterword ='';
 
@@ -37,7 +43,12 @@
 
                 $scope.setFilter=function(word){
                     $scope.bandsfilterword = word;
+
+
                 }
+
+
+
             }])
         })()
     </script>
@@ -59,7 +70,13 @@
          </li>
 
     </ul>
+     <ul>
+         <li ng-repeat="item in datetimelist | orderBy:item:true">
+             {{item | date:'yyyy-MM-dd HH:mm:ss'}}
 
+         </li>
+
+     </ul>
 
 </div>
 </body>
