@@ -62,6 +62,8 @@ before as is the selected object (can be one of land item or the whole object )
 7. double orderBy and reverse
 <ui  ng-repeat="item  in  items |orderBy:['year','month']:true">
 
+note: "year"/"month" is one key of item's json data
+
 8. some issue when used angular 
 if you saved some data in the service. And used them on the page 
 but when you back the page it's only refresh the ng-repeat data other data not refreshed 
@@ -139,7 +141,7 @@ ui-sref-opts="{reload: true}"
                 <a class="carousel-control right" href="#myCarousel" target="#myCarousel"
                    data-slide="next">&rsaquo;</a>
             </div>
-/**
+/**  当自动轮播没有进行，尤其是需要点击一次后才开始自动轮播的时候，可以在图片加载的js中加： $('#myCarousel').carousel(); 手动启动轮播（写在图片加载完成后）
  * 把下面的module 引入项目中   这段hack一定要在ui-bootstrap-tpls.js 后引入   noted at <a> tab need add the target otherwise it will link to the href url not change the img
  */
 angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])

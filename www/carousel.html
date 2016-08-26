@@ -11,6 +11,7 @@
     <script src="js/angular.js"></script>
     <script src="js/onsenui.js"></script>
     <script src="js/onsenui.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
 </head>
 <body >
 <ons-page>
@@ -21,8 +22,8 @@
     <p style="text-align: center; color: #999; font-size: 14px;">Swipe left to draw action menu.</p>
 
     <ons-list>
-        <ons-list-item class="list-item" ng-repeat="a in [1,2,3,4,5]">
-            <ons-carousel swipeable style="height: 72px; width: 100%;" initial-index="1" auto-scroll>
+        <ons-list-item class="list-item" ng-repeat="a in [1,2,3,4,5]" >
+            <ons-carousel swipeable style="height: 72px; width: 100%;" initial-index="1" auto-scroll data-ride="carousel">
                 <ons-carousel-item class="list-action-menu">
                     list action menu
                 </ons-carousel-item>
