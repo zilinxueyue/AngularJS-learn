@@ -1,0 +1,137 @@
+<html ng-app="inputTest">
+<head>
+    <link rel="stylesheet" href="js/bootstrap.min.css" />
+    <link rel="stylesheet" href="js/ng-inputSearch.css" />
+    <script src="js/firebase.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angularfire.min.js"></script>
+    <script src="js/ng-inputSearch.js"></script>
+
+
+</head>
+<body ng-controller="inputController">
+
+<div class="row text-center">
+    <h2>Bootstrap 3 & AngularJS Input</h2><br />
+
+    Search Country ( more than 3 caracteres) and use key "Up" "Down" "Enter" "Escape"
+</div>
+<br />
+<div class="row">
+
+    <search-bar
+            search-button="searchButton()"
+            search-partials="searchPartials()"
+            action-on-element="actionOnElement(id)"
+            search-query="searchQuery"
+            results="results"
+    >
+    </search-bar>
+    <script id="template/searchinput/element.html" type="text/ng-template">
+        <div style="padding-left:5px;padding-right:5px">
+            <span style="padding-left:15px" >{{element}}</span>
+            <!--<span class="pull-right">{{element.code}}</span>-->
+        </div>
+    </script>
+</div>
+<br />
+<script>
+    angular.module('inputTest',['ng.inputSearch','firebase'])
+
+            .factory('utilService', function() {
+                var service ={}
+                    //toast plugin api doc: http://market.ionic.io/plugins/ionictoast
+                service.myalert=function(str) {
+                            var shield = document.createElement_x("DIV");
+                            shield.id = "shield";
+                            shield.style.position = "absolute";
+                            shield.style.left = "0px";
+                            shield.style.top = "0px";
+                            shield.style.width = "100%";
+                            shield.style.height = document.body.scrollHeight+"px";
+                            //弹出对话框时的背景颜色
+                            shield.style.background = "#fff";
+                            shield.style.textAlign = "center";
+                            shield.style.zIndex = "25";
+                            //背景透明 IE有效
+                            //shield.style.filter = "alpha(opacity=0)";
+                            var alertFram = document.createElement_x("DIV");
+                            alertFram.id="alertFram";
+                            alertFram.style.position = "absolute";
+                            alertFram.style.left = "50%";
+                            alertFram.style.top = "50%";
+                            alertFram.style.marginLeft = "-225px";
+                            alertFram.style.marginTop = "-75px";
+                            alertFram.style.width = "450px";
+                            alertFram.style.height = "150px";
+                            alertFram.style.background = "#ff0000";
+                            alertFram.style.textAlign = "center";
+                            alertFram.style.lineHeight = "150px";
+                            alertFram.style.zIndex = "300";
+                            strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+                            strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[自定义提示]</li>\n";
+                            strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+                            strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\">";
+                            strHtml += "<input type='button' value='确 定' onclick='doOk()'>";
+                            strHtml +="</li>";
+                            strHtml += "</ul>\n";
+                            alertFram.innerHTML = strHtml;
+                            document.body.appendChild(alertFram);
+                            document.body.appendChild(shield);
+                            var ad = setInterval("doAlpha()",5);
+                            this.doOk = function(){
+                                alertFram.style.display = "none";
+                                shield.style.display = "none";
+                            }
+                            alertFram.focus();
+                            document.body.onselectstart = function(){return false;};
+                        }
+
+                return service;
+            })
+            .controller('inputController',['utilService','$scope','$location','$firebase','$filter','$http',
+                function(utilService,$scope,$location,$firebase,$filter,$http){
+
+//                var country = new Firebase("https://blistering-fire-7254.firebaseio.com/country");
+//
+//                $scope.countryObj = $firebase(country);
+                $scope.results = [];
+                $scope.searchButton = function(){
+                    alert("Search ="+$scope.searchQuery);
+                }
+                $scope.searchPartials = function(){
+
+                    $http.get('http://9.125.151.127:8080/ldshop/product/getSearchSuggest.do?searchContent=' + $scope.searchQuery, {cache: true})
+                            .success(function (data) {
+                                console.log(data.data);
+                                $scope.results=data.data;
+                            })
+                            .error(function (data) {
+                            });
+
+//                    $scope.country = $filter('orderByPriority')($scope.countryObj);
+//
+//                    for (var i = 0; i < $scope.country.length; i++) {
+//                        if(angular.uppercase($scope.country[i].name).indexOf(angular.uppercase($scope.searchQuery)) != -1){
+//                            $scope.results.push($scope.country[i]);
+//                        }
+//
+//                    }
+                }
+                $scope.actionOnElement = function(id){
+                    utilService.myalert("Click on  ="+$scope.results[id]);
+                    $scope.searchQuery=$scope.results[id];
+                }
+
+            }]);
+
+
+
+</script>
+<script>
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/angular.js"></script>
+    <title>serchInput</title>
+    <style>
+        html,
+        body {
+            font-family: 微软雅黑;
+            overflow: hidden;
+        }
+
+        .content {
+            width: 420px;
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            margin-left: -200px;
+            margin-top: -40px;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .content > h2 {
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .search-text {
+            display: block;
+            float: left;
+            height: 38px;
+            width: 309px;
+            font-size: 16px;
+            color: #777;
+            outline: none;
+            padding: 0 0 0 10px;
+            margin: 0;
+            border: 1px solid #b4b4b4;
+            border-right-width: 0;
+            letter-spacing: 1px;
+        }
+
+        .search-text:hover {
+            border: 1px solid #888;
+            border-right-width: 0;
+        }
+
+        .search-text:focus {
+            border: 1px solid #2DD1AF;
+            border-right-width: 0;
+        }
+
+        .search-btn {
+            display: block;
+            height: 40px;
+            width: 80px;
+            padding: 0;
+            float: left;
+            margin: 0;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 2px;
+            font-size: 14px;
+            font-family: 微软雅黑;
+            background: #2DD1AF;
+            color: #fff;
+            outline: none;
+            -moz-border-radius: 0px 4px 4px 0px;
+            -webkit-border-radius: 0px 4px 4px 0px;
+            border-radius: 0px 4px 4px 0px;
+            -webkit-transition: background 0.3s ease-in-out;
+            -moz-transition: background 0.3s ease-in-out;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .search-btn:hover {
+            background: #29BC95;
+        }
+
+        #search-suggest {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            margin-left: -190px;
+            margin-top: 70px;
+            display: block;
+            background: #fff;
+        }
+
+        #search-suggest ul {
+            list-style: none;
+            width: 318px;
+            border: 1px solid #b4b4b4;
+            padding: 0;
+            margin: 0;
+            box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        #search-suggest ul li {
+            padding: 3px 10px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        #search-suggest ul li:hover {
+            background: #eee;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="myContrl">
+<form class="content">
+    <h2>前端搜索框效果制作</h2>
+    <input class="search-text" id="search-text" type="text" ng-model="searchContent" ng-change="getSuggest()"
+           placeholder="请输入搜索内容" maxlength="50">
+    <input type="button" class="search-btn" value="搜索" ng-click="getSuggest()">
+</form>
+
+<div class="suggest" id="search-suggest" ng-show="items.length > 0">
+    <ul>
+        <li ng-repeat="item in items">{{item}}</li>
+        <!--<li>动态AJAX数据2</li>-->
+        <!--<li>动态AJAX数据3</li>-->
+        <!--<li>动态AJAX数据4</li>-->
+    </ul>
+</div>
+<script>
+    angular.module('myApp', [])
+            .controller('myContrl', function ($scope, $http) {
+                $scope.searchContent="";
+                $scope.items =[];
+                $scope.getSuggest = function () {
+                    console.log($scope.searchContent);
+                    if ( $scope.searchContent.length > 0) {
+                        $http.get('http://9.125.151.127:8080/ldshop/product/getSearchSuggest.do?searchContent=' + $scope.searchContent, {cache: true})
+                                .success(function (data) {
+                                    console.log(data.data);
+                                    $scope.items=data.data;
+                                })
+                                .error(function (data) {
+                                });
+
+                    }
+                }
+            });
+
+</script>
+<script>
+//    var oSearchText = document.getElementById('search-text');
+//    var oSearchSuggest = document.getElementById('search-suggest');
+//    document.addEventListener('keyup', function (e) {
+//        e = e || event;
+//        if (e.target.tagName.toLowerCase() == 'input') {
+//            if (oSearchText.value.length) {
+//                oSearchSuggest.style.display = 'block';
+//            }
+//            else {
+//                oSearchSuggest.style.display = 'none';
+//            }
+//        }
+//    });
+//    document.addEventListener('click', function (e) {
+//        e = e || event;
+//        if (oSearchText.value.length) {
+//            if (e.target.tagName.toLowerCase() != 'input') {
+//                oSearchSuggest.style.display = 'none';
+//            } else {
+//                oSearchSuggest.style.display = 'block';
+//            }
+//        }
+//    })
+</script>
+</body>
+</html>

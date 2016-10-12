@@ -96,6 +96,13 @@ ui-sref-opts="{reload: true}"
  When use it with html. do not add the controller on the body. ---- ui-view will add the html into index.html but there will only have on body for the html.
  So if add the controller on the other html's body it's will not include into the view.
 
+big problem: if the ui-view and ng-controller is on same div then the <input> tag  under this controller  not working any more
+<div ui-view="someview" ng-controller="sometControl"> </div>
+
+to fix this can change the page contruct as below:
+<div ui-view="someview" >
+   <div ng-controller="sometControl"></div>
+</div>
 
 13. angularJs timer use
         $scope.clock = {
@@ -217,6 +224,11 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 
 var today = new Date();
 $scope.formatDate = $filter('date')(today, 'yyyy-MM-dd');
+下面用于过滤对象的某一项： 按照banditem 中productBrandFirstEn 字段匹配 bandwordfiltertext这个是可变为输入或者选择的过滤字母，不区分大小写
+要区分大小写需要改成filter:{productBrandFirstEn:bandwordfiltertext}:false
+<a  ng-repeat="banditem in productBandList | filter:{productBrandFirstEn:bandwordfiltertext}">
+
+
 
 输出结果为：
 
@@ -229,3 +241,21 @@ $scope.formatDate = $filter('date')(today, 'yyyy-MM-dd');
  <a class="vc-close" data-target=''  data-dismiss="modal">关闭</a>
 
  调用这个就可以释放modal 回到原页面data-dismiss="modal"
+
+ 20.ui-serf reload
+ui-sref-opts="{reload: true}"
+
+21. ui-serf 和 a 标签配合使用时 加上target=_blank后 有时候无法解析
+<a target="_blank" ui-sref="home.product-detail({productId:result.orderItems[0].productId})"
+问题是在这个配合使用过程中不知道什么原因到是ui-sref 没有解析成href 但是之后的ng-repeat 中却能解析
+
+经过摸索 虽然不知道原因但是解决办法是把 id 提出来
+在controller里面单独赋值
+$scope.productId=result.orderItems[0].productId 然后再用下面的就可以了 无语啊 是不是ui-router 有点傻还是其他原因
+<a target="_blank" ui-sref="home.product-detail({productId:productId})"
+
+
+
+
+
+

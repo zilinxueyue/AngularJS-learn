@@ -1,0 +1,185 @@
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<script src="js/angular.js"></script>-->
+    <!--<script src="js/angular-route.js"></script>-->
+    <link rel="stylesheet" href="css/angucomplete.css">
+    <!--<link rel="stylesheet" href="css/ng-tags-input.css">-->
+    <!--<link rel="stylesheet" href="css/onsen-css-components.css">-->
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="css/angucomplete-alt.css">-->
+    <!--<script src="js/angular.min.js"></script>-->
+    <script src="js/angular.js"></script>
+    <script src="js/angucomplete.js"></script>
+    <!--<script src="js/onsenui.js"></script>-->
+    <!--<script src="js/onsenui.min.js"></script>-->
+    <!--<script src="js/angucomplete-alt.js"></script>-->
+
+</head>
+<body ng-app="myApp" ng-controller="MyCtrl">
+<!--<tags-input ng-model="tags">-->
+    <!--<auto-complete source="loadTags($query)"></auto-complete>-->
+<!--</tags-input>-->
+
+<!--<tags-input ng-model="tags"></tags-input>-->
+
+<angucomplete id="members"
+              placeholder="Search members"
+              pause="400"
+              selectedobject="myObject"
+              url="http://9.125.151.127:8080/ldshop/product/getSearchSuggest.do?searchContent="
+              datafield="data"
+              titlefield=""
+              descriptionfield=""
+              minlength="1"
+              imagefield=""
+              inputclass="form-control form-control-small"></angucomplete>
+
+<!--<angucomplete id="ex1"-->
+              <!--placeholder="Search countries"-->
+              <!--pause="100"-->
+              <!--selectedobject="selectedCountry"-->
+              <!--ng-model="sdfdsafsa1"-->
+              <!--localdata="countries.json"-->
+              <!--searchfields="name"-->
+              <!--titlefield="name"-->
+              <!--minlength="1"-->
+              <!--inputclass="form-control form-control-small"></angucomplete>-->
+
+You selected {{myObject}} which has a country code of {{selectedCountry.originalObject.code}}
+
+
+<br><br>
+<button ng-click="showing()">ShowSelectfff</button>
+<a>-- {{myObject}}</a>
+
+<input  value="商品名称/商品编号/订单号"
+        type="text">
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+
+
+
+<script>
+    angular.module('myApp', ['angucomplete'])
+//            .directive('mdSearchInput',[function(){
+//        return{
+//            restrict:'E',
+//            controller:['$scope','$timeout',function($scope,$timeout){
+//                var tsk=null;
+//                $scope.delay=1000;
+//                $scope.on_changed=function(){
+//                    if(null !== tsk) {$timeout.cancel(tsk);} //去掉前一个任务
+//                    tsk = $timeout(function(){
+//                        $timeout.cancel(tsk);tsk=null;
+//                        $scope.onSearch()($scope.searchText);
+//                    },$scope.delay);
+//                };$scope.on_clear=function(){
+//                    var tsk=null;$scope.searchText='';
+//                    tsk=$timeout(function(){
+//                        $timeout.cancel(tsk);tsk=null;
+//                        $scope.onSearch()($scope.searchText);
+//                    },100);
+//                }
+//            }],
+//            scope:{
+//                inputName: '@mdInputName',
+//                searchText: '=?mdSearchText',
+//                onSearch: '&?mdSearch',
+//                placeholder: '@placeholder',
+//                delay: '@delay'
+//            },
+//            template:'<div class="md-search-input" layout="row">\
+//<input type="text" flex autocomplete="off" ng-model="searchText" name="{{inputName}}" placeholder="{{placeholder}}" ng-change="on_changed()" />\
+//<md-button class="md-fab" ng-click="on_clear()" ng-show="searchText!==\'\'"><md-icon md-svg-icon="md-close" style="color:rgba(0,0,0,0.5);"></md-icon></md-button>\
+//</div>',
+//            link:function($scope, $element){
+//            }
+//        };
+//    }])
+            .controller('MyCtrl', function($scope, $http) {
+
+                $scope.showing=function(){
+                    console.log($scope);
+                }
+//                $scope.tags = [
+//                    { text: 'just' },
+//                    { text: 'some' },
+//                    { text: 'cool' },
+//                    { text: 'tags' }
+//                ];
+//                $scope.loadTags = function(query) {
+//                    return $http.get('/tags?query=' + query);
+//                };
+            });
+</script>
+
+<!--<script type="text/javascript">-->
+    <!--angular.module("myApp",["ngRoute","angucomplete-alt"])-->
+
+
+            <!--.controller("autoCompleteControl",function($scope){-->
+                <!--$scope.localSearch = function(str) {-->
+                    <!--var matches = [];-->
+                    <!--$scope.people.forEach(function(person) {-->
+                        <!--var fullName = person.firstName + ' ' + person.surname;-->
+                        <!--if ((person.firstName.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||-->
+                                <!--(person.surname.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||-->
+                                <!--(fullName.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {-->
+                            <!--matches.push(person);-->
+                        <!--}-->
+                    <!--});-->
+                    <!--return matches;-->
+                <!--};-->
+                <!--$scope.autoContent="";-->
+                <!--$scope.textChane = function(){-->
+                    <!--console.log("$scope.autoContent :"+$scope.autoContent);-->
+
+                <!--}-->
+            <!--})-->
+            <!--.controller("aController",function($scope,$route){-->
+                <!--$scope.hello = "hello,a!";-->
+            <!--})-->
+            <!--.controller("bController",function($scope){-->
+                <!--$scope.hello = "hello,b!";-->
+            <!--})-->
+            <!--.controller("myCtrl",function($scope,$location){-->
+
+                <!--$scope.$on("$viewContentLoaded",function(){-->
+                    <!--console.log("ng-view content loaded!");-->
+                <!--});-->
+
+                <!--$scope.$on("$routeChangeStart",function(event,next,current){-->
+                    <!--//event.preventDefault(); //cancel url change-->
+                    <!--console.log("route change start!");-->
+                <!--});-->
+            <!--})-->
+            <!--.config(function($routeProvider, $locationProvider) {-->
+                <!--$routeProvider-->
+                        <!--.when('/a', {-->
+                            <!--templateUrl: 'tianDetails.html',-->
+                            <!--controller: 'aController'-->
+                        <!--})-->
+                        <!--.when('/b', {-->
+                            <!--templateUrl: 'vip.html',-->
+                            <!--controller: 'bController',-->
+                            <!--resolve: {-->
+                                <!--// I will cause a 1 second delay-->
+                                <!--delay: function($q, $timeout) {-->
+                                    <!--var delay = $q.defer();-->
+                                    <!--$timeout(delay.resolve, 3000);-->
+                                    <!--return delay.promise;-->
+                                <!--}-->
+                            <!--}-->
+                        <!--})-->
+                        <!--.otherwise({-->
+                            <!--redirectTo: '/a'-->
+                        <!--});-->
+            <!--});-->
+<!--</script>-->
+</body>
+</html>
