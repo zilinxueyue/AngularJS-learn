@@ -255,6 +255,26 @@ $scope.productId=result.orderItems[0].productId 然后再用下面的就可以�
 <a target="_blank" ui-sref="home.product-detail({productId:productId})"
 
 
+22.关于ui-router使用后页面title的问题
+网上流传的用rootscope 开启stateChangeSuccess 貌似是不行
+换了一种方式：
+在app下加入如下方法
+ .run(['$rootScope', '$state', '$stateParams',
+            function ($rootScope, $state, $stateParams) {
+                $rootScope.$state = $state;
+                $rootScope.$stateParams = $stateParams;
+            }])
+        .run(['$rootScope', '$state', function($rootScope, $state) {
+            $rootScope.$on('$stateChangeSuccess', function(evt, to, params, from) {
+                console.log("from : " + from.name + ", to:" + to.name);
+            });
+        }])
+
+然后在页面用$state.current.name 判断显示相应的title
+<title>
+        {{$state.current.name=='login'?'登录':$state.current.name=='error'?'登录过期':$state.current.name=='home.product-detail'?'产品详情':$state.current.name=='home.addtocart'?'添加成功':$state.current.name=='home.productlist'?'产品列表':$state.current.name=='home.productrecommendation'?'精品推荐':$state.current.name=='home.productnew'?'最新上架':$state.current.name=='home.productsearchlist'?'产品列表':$state.current.name=='getorderinfo'?'结算':$state.current.name=='shoppingcartlist'?'购物车':$state.current.name=='orderrating'?'订单评价':$state.current.name=='orderrating.productrating'?'产品评价':$state.current.name=='orderrating.productratingdetail'?'评价详情':$state.current.name=='orderlist'?'订单列表':$state.current.name=='orderdetail'?'订单详情':$state.current.name=='orderlist.canceldetail'?'取消详情':$state.current.name=='ordercancellist'?'取消列表':$state.current.name=='ordercancellist.cancellistdetail'?'取消详情':$state.current.name=='payment'?'订单支付':$state.current.name=='customerservice'?'客户服务':$state.current.name=='aboutlaoodao'?'关于劳道':$state.current.name=='commonproblem'?'常见问题':$state.current.name=='commonproblem.detail'?'常见问题':$state.current.name=='help'?'帮助中心':$state.current.name=='quickcard.edit'?'编辑快捷支付':$state.current.name=='quickcard.add'?'添加快捷支付':$state.current.name=='return'?'退换货':$state.current.name=='return.apply'?'申请退换货':$state.current.name=='return.record'?'退换货记录':$state.current.name=='return.recorddetail'?'退换详情':$state.current.name=='return.refund'?'退款记录':$state.current.name=='return.replysuccess'?'申请成功':"劳道商城"}}</title>
+    <!--bootstrap-->
+
 
 
 
