@@ -274,8 +274,32 @@ $scope.productId=result.orderItems[0].productId 然后再用下面的就可以�
 <title>
         {{$state.current.name=='login'?'登录':$state.current.name=='error'?'登录过期':$state.current.name=='home.product-detail'?'产品详情':$state.current.name=='home.addtocart'?'添加成功':$state.current.name=='home.productlist'?'产品列表':$state.current.name=='home.productrecommendation'?'精品推荐':$state.current.name=='home.productnew'?'最新上架':$state.current.name=='home.productsearchlist'?'产品列表':$state.current.name=='getorderinfo'?'结算':$state.current.name=='shoppingcartlist'?'购物车':$state.current.name=='orderrating'?'订单评价':$state.current.name=='orderrating.productrating'?'产品评价':$state.current.name=='orderrating.productratingdetail'?'评价详情':$state.current.name=='orderlist'?'订单列表':$state.current.name=='orderdetail'?'订单详情':$state.current.name=='orderlist.canceldetail'?'取消详情':$state.current.name=='ordercancellist'?'取消列表':$state.current.name=='ordercancellist.cancellistdetail'?'取消详情':$state.current.name=='payment'?'订单支付':$state.current.name=='customerservice'?'客户服务':$state.current.name=='aboutlaoodao'?'关于劳道':$state.current.name=='commonproblem'?'常见问题':$state.current.name=='commonproblem.detail'?'常见问题':$state.current.name=='help'?'帮助中心':$state.current.name=='quickcard.edit'?'编辑快捷支付':$state.current.name=='quickcard.add'?'添加快捷支付':$state.current.name=='return'?'退换货':$state.current.name=='return.apply'?'申请退换货':$state.current.name=='return.record'?'退换货记录':$state.current.name=='return.recorddetail'?'退换详情':$state.current.name=='return.refund'?'退款记录':$state.current.name=='return.replysuccess'?'申请成功':"劳道商城"}}</title>
     <!--bootstrap-->
+次方法只使用于 根据state名字要定制化 必须换其他的 如下：
+   ----html 首页不加入 title 标签 在第一个ui-view 里面添加：
+   标签可以放在页面任何位置为了能在controller中控制 写在controller内部.
+   在父类中定义对象 如 $scope.systemvalue={pageTitle:'default title'}; ---因为在js中对象是引用 所以在子controller里面改变值对应的父页面也改变了
+   同时记得用 ng-bind 代替{{}}. 这样在页面没加载成功的时候就不会出现{{}}里面的参数显示出来的问题
+   或者这样：
+   <TAG ng-cloak>{{data}}</TAG>
+   另外，这种方法需要你手动把 angular-csp.css 文件加载到页面中。
+
+  ：note 经验总结 有时候页面过于复杂 不一定ui-router里面定义的二级页面就是真的controller包含关系。这时可以打开页面看element 中controller是否真的是包含
+   如果没有包含 直接在子页面定义title 就行
+
+   这个问题真蛋疼 ui-router 引入导致不自动用子页面定义的title 覆盖父页面
 
 
 
 
 
+23.关于style 中用AngularJS 不能被IE识别的问题解决办法；
+在IE中如果用style中表达式判断比如这个根据页面index改变当前选中页码的颜色style="{{homeNavMenuIndex == 2?'background: #4CAF50;':''}}"
+在IE中无法被识别，本来是可以在css中定义,a:hover（鼠标进入）和a:visited（访问完毕）。实现但是项目开始没用如此设定所有变通
+改为用class来是吧：
+在css文件中写入一个名字比如：
+.splitpageclick{
+background: #4CAF50;
+}
+然后在<a>页码标签上加上class 这个IE可以识别
+class="{{pageindex == currentPage?'splitpageclick':''}}"
+同样的可以用于其他想要改变css的情况
